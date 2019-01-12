@@ -1,0 +1,58 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesFile{binsen.clo}
+  [1999/01/17 v1.0 (便箋 option)]
+\AtBeginDocument{\tate\message{《便箋風》}%
+ \adjustbaseline}%
+\renewcommand{\normalsize}{%
+  \@setfontsize\normalsize\@xpt{17}}%
+%\def\kanjiencodingdefault{JT1}%
+\def\kanjiencodingdefault{JT2}%
+\kanjiencoding{\kanjiencodingdefault}%
+\normalsize
+\setbox0\hbox{\char\euc"A1A1}%
+\setlength\Cht{\ht0}
+\setlength\Cdp{\dp0}
+\setlength\Cwd{\wd0}
+\setlength\Cvs{\baselineskip}
+\setlength\Chs{\wd0}
+\newcommand{\small}{%
+  \@setfontsize\small\@ixpt{11}}%
+\newcommand{\footnotesize}{%
+  \@setfontsize\footnotesize\@viiipt{9.5}}%
+\newcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
+\newcommand{\tiny}{\@setfontsize\tiny\@vpt\@vipt}
+\newcommand{\Large}{\@setfontsize\Large\@xivpt{34.4}}
+\newcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{41.57}}
+%%****************************
+\newlength{\@thosei}
+\newlength{\@yhosei}
+\newlength{\KANJISKIP}
+\setlength{\KANJISKIP}{\kanjiskip}
+\AtBeginDocument{\kanjiskip=.3zw plus .2zw\Large}
+\paperheight=257mm
+\paperwidth=182mm
+\newdimen\ttextwidth
+\ttextwidth=205mm
+%\textwidth=205mm
+%
+\textheight=145mm
+\oddsidemargin=-35.5mm
+\evensidemargin\oddsidemargin
+\topmargin=-28mm\relax
+\setlength{\@thosei}{0mm}
+\setlength{\@yhosei}{-6.5mm}
+% 橫罫線定義
+\def\@keisen{\vrule width .1pt depth \ttextwidth\hskip 12.05mm}
+\def\@keisenk{\vrule width texthight depth .1 pt \vskip 17.05mm}
+\def\masu{
+\begin{tabular}{l}
+ \@keisen\@keisen\@keisen\@keisen\@keisen\@keisen\@keisen
+ \@keisen\@keisen\@keisen\@keisen\@keisen\@keisen\\
+ \if@genkouid {\small\the\@signature}\fi
+ \end{tabular}
+ }
+
+%\DeclareFontShape{JT1}{mc}{m}{n}{<-> gtmin10}{}
+\DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+\endinput
+%% End of file `binsen.clo'.

@@ -1,0 +1,212 @@
+\documentclass{jarticle}
+\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textwidth}{20mm}
+\addtolength{\topmargin}{-10mm}
+\addtolength{\textheight}{20mm}
+\makeatletter
+\def\biao{\@ifnextchar[{\@biao}{\@biao[無指定五字]}}
+\def\@biao[#1]{%
+ \list{}{%
+ \let\makelabel\biaolabel\settowidth{\labelwidth}{#1}%
+ \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{1zw}%
+ \setlength{\topsep}{\baselineskip}\setlength{\partopsep}{0pt}%
+ \setlength{\parsep}{0pt}\setlength{\labelsep}{1zw}%
+ \setlength{\itemsep}{0pt}\setlength{\itemindent}{0pt}}}%
+\let\endbiao\endlist
+\def\biaolabel#1{\bfseries#1\hfill\inhibitglue}%
+\makeatother
+\begin{document}
+\begin{center}
+{\LARGE 原稿用紙パッケージ\vskip5mm
+ver 1.0\vskip5mm
+\large 1999/01/17}\vskip10mm
+\end{center}
+
+原稿用紙パッケージをダウンロードしていただき，誠にありがとうございます。
+パッケージと呼んでいますが，実際は genkou.cls というクラスファイルを
+中核とした一連の関連ファイル群をまとめたものです。
+
+\section{なにをするもの？}
+このマクロの目的は\TeX{}で原稿用紙のような体裁を実現することです。
+文字と桝目を同時に出力します。
+市販の原稿用紙の桝目にあわせて文字を印刷するものではありません。
+
+\section{動作環境}
+p\LaTeXe{}専用です。その他に，colorパッケージのusenamesオプションに
+対応するDVIドライバと，METAFONTが使用可能であることが必要です。
+動作確認は，dviout for Windows (color special に対応したバージョン）と
+dvipsk(win32)＋GSviewでおこないました。
+
+\section{インストール}
+以下の準備が必要です。
+
+\begin{enumerate}
+\item genkou.cls, tgenkou.clo, ygenkou.clo, ribon.clo, binsen.clo,
+genkomac.sty, genkouid.tex, genkin.texの7つのファイルを
+\TeX{}が見つけられる適当なフォルダにコピーしてください。
+\item gtmin10.tfmとgmin10.tfmを，min10.tfm などの JFM ファイルと
+同じフォルダにコピーし，gtmin10.tfmとgmin10.tfmをDVIドライバから
+使用できるように設定してください。やり方は，DVIドライバのマニュアル
+などを参照してください。
+\item gerib10.mfからTFMファイルと21.5pt のPKフォントを
+使用する解像度に合わせて作成してください。
+300dpi, 360dpi, 600dpi, 720dpi用のPKフォントを同梱していますので，
+gerib10.tfmと使用する解像度に合ったgerib10.*PKを適当なフォルダに
+移動しても結構です。
+\item 必要に応じて，genkouid.texを書き換えてください。
+クラスオプションに「名前」を指定した場合，このファイルで
+指定した文字を原稿用紙に挿入します。
+\end{enumerate}
+
+\section{使い方}
+documentclass に genkou.cls を指定し，必要に応じてオプションを
+指定します。指定できるオプションは次の5種類（括弧内はオプション名）です。
+
+\begin{enumerate}
+\item 組み方（横，縦，リボン，便箋）
+\item 用紙サイズ（B5，A4，B4）
+\item 桝目の色（空，海，苺，春，墨，秋，森，夜，鮭，鼠，松，菫，無）
+\item 禁則処理（禁則）
+\item 名前入れ（名前）
+\end{enumerate}
+
+オプションが無指定のときは，「縦書き，A4，松，禁則処理なし，名前なし」
+になります。同じ種類のオプションを複数指定してはいけません。
+
+\begin{verse}
+指定例： \verb+\documentclass[横,B5,森]{genkou}+
+\end{verse}
+
+\subsection{組み方}
+横書き，縦書き，リボン付き（義務教育でよく見掛ける体裁のもの），
+便箋風（縦書きで行間に罫線の入るもの）の4種類から選ぶことができます。
+
+\subsection{用紙サイズ}
+用紙サイズオプションは，組み方に縦か横を指定した場合にのみ意味を持ちます。
+指定可能な組み合わせは，＜横,B5＞，＜横,A4＞，＜縦,A4＞，＜縦,B4＞の4種類
+です。組み方にリボンや便箋を指定した場合は，用紙サイズは
+自動的に決められます。
+
+\subsection{桝目の色}
+13種類の色（無色を含む）から選ぶことができます。どのような色になるかは，
+実際にお試しください。
+
+\subsection{禁則処理}
+禁則処理をするかどうかを指定します。無指定では桝目を埋めるためにほとんど
+禁則処理をしません。句読点など一部の文字のみが桝目の外にぶら下げられる
+ようになります。オプションに「禁則」を指定した場合は，アスキーの配布に
+含まれるkinsoku.texに準拠して禁則処理をおこないます。
+
+\subsection{名前入れ}
+オプションに「名前」を指定すると原稿用紙の左隅にgenkouid.texで指定した
+文字を挿入します。genkouid.texに次のような一行を書き込んで指定します。
+
+\begin{verse}
+\verb+\名前{ほげほげ}+
+\end{verse}
+
+\verb+\名前+コマンドの引数には，中括弧を含むマクロを入れてはいけません。
+たとえば，\\ \verb+\hspace{10mm}+などを含めたい場合には，
+\verb+\def\SPACE{\hspace{10mm}}+などとしてから，
+\verb+\名前{ほげ\SPACE ほげ}+
+のようにしてください。
+
+\section{制限事項}
+\LaTeX{}標準のクラスファイル用のコマンドを一部使用可能にしていますが，
+エラーにならないようにしてあるだけで，機能上の互換性はありません。
+たとえば，\verb+\section+で連番を振ることはできますが，
+目次に抽出することはできません。
+
+１バイトの英数記号を使うと桝目から文字がずれます。
+「禁則」オプションを指定しているときは，後述の\verb+\oubun+コマンドを
+使うことで，欧文の後の和文が桝目に収まるようにできます。
+「禁則」を指定していない場合は，\verb+\oubun+コマンドは
+有効ではありません。
+
+
+\section{コマンド?環境一覧}
+使用可能なコマンドと環境です。使用例は，添付のサンプルをご覧ください。
+
+\subsection{コマンド}
+\begin{biao}[　　　　　　　　]
+\item[$\backslash$空行]空白行を作ります。★注意：ページの始めでは無効です。
+\item[$\backslash$一字下げ]段落の始めを一字下げするようになります。
+全角空白を入れるのと同じ結果になります。初期値では字下げはありません。
+\item[$\backslash$oubun]1バイトの文字を使ったあとのずれを
+ある程度解消します。\\
+\verb+\oubun{Donald E. Knuth}+のように使います。
+段落の終わり付近で使うと笑えます。クラスオプションに「禁則」を指定した
+場合のみ有効です。
+\item[$\backslash$ruby]ルビをふります。
+\verb+\ruby{漢字}{かん,じ}+のように使います。ルビは，文字ごとに半角の
+カンマで区切ってください。6文字まで一度にルビを振れます。
+段落の最初の文字にルビを振る場合は，\verb+\ruby*+としてください。
+\verb+\ruby+コマンドを続けて使ってはいけません。
+7文字以上続けてルビを振る場合は，7文字め以降には行頭と同様に\verb+\ruby*+
+を使ってください。
+\item[$\backslash$part]「本当の」\verb+\part+の代わりです。
+連番をふります。前後で改頁します。
+\item[$\backslash$chapter]「本当の」\verb+\chapter+の代わりです。
+連番をふります。手前で改頁します。
+\item[$\backslash$section]「本当の」\verb+\section+の代わりです。
+連番をふります。
+\item[$\backslash$subsection]「本当の」\verb+\subsection+の代わりです。
+連番をふります。
+\item[$\backslash$subsubsection]「本当の」\verb+\subsubsection+の
+代わりです。連番をふりません。
+\item[$\backslash$pagestyle]無指定では，ページ番号は左上に
+下線付きで出力されます。\verb+\pagestyle+に plain を指定することにより，
+下中央に出力するようになります。
+\end{biao}
+★これらのコマンド，環境は，「リボン」スタイルではうまく動作しない事が
+あります。リボンスタイルは，べた書き用とご理解ください。
+
+\subsection{環境}
+
+\begin{biao}[　　　　　　　　]
+\item[enumerate環境]数字を付けた箇条書き環境です。
+「本当の」enumerate 環境の代わりに作りましたが，
+ネスティングには対応していません。
+\item[itemize環境]\makebox[1zw][c]{\textbullet}付きの箇条書き環境です。
+「本当の」itemize環境の代わりに作りましたが，
+ネスティングには対応していません。
+\item[biao環境]description環境に似た見出しつきの箇条書き環境です。
+オプション引数に文字列を指定すると，その文字列の幅がラベルの幅になります。
+無指定では全角五文字分の幅です。
+\item[ribon環境]組み方のオプションに「リボン」を指定した場合には，
+\verb+\begin{document}+の直後で\verb+\begin{ribon}+として，
+\verb+\end{ribon}+の直前で\verb+\end{ribon}+としてください。
+ribon環境は「リボン」オプション指定のときのみ意味を持ちます。
+\end{biao}
+
+\section{配布?改変}
+配布?改変はご自由にどうぞ。作者に許可を得る必要はありません。
+ただし，サンプルに含まれる短歌の著作権は平成太郎さん(NAH01433)
+にありますので，本アーカイブの一部としての再配布以外の目的での
+利用を希望される場合には，平成太郎さんに許諾を求めてください。
+
+\section{謝辞}
+
+本マクロの作成にあたっては，NIFTY SERVE/FTEXフォーラムのみなさまに
+多々おせわになりました。
+
+句読点や拗促音などをプロポーショナル処理しない専用JFMファイルの
+作り方をトニイさん(PAG01322)にご教示いただきました。
+
+マクロについて，大石勝さん(DZH00446)，美吉明浩さん(JCA01275)，\\
+tDB さん(CQB00260)にご助言をいただきました。
+
+原稿用紙の体裁について北條(itam)さん(YRL02360)，Moriyamaさん(JCF00714)
+にご助言をいただきました。
+
+そして原稿用紙体裁のマクロを所望され，本マクロ作成のきっかけを作られた
+平成太郎さん(NAH01433)には，マクロ作成過程の全面にわたってご提案?ご助
+言をいただくとともに，マクロの不出来さを覆い隠してくれるすばらしい見本
+をご提供いただきました。
+
+あらためてお礼を申し上げます。
+
+\vskip10mm
+
+\rightline{1999/01/17\hskip10mm bookworm (BYV01204)}
+\end{document}

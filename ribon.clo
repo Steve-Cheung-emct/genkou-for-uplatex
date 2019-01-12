@@ -1,0 +1,92 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesFile{ribon.clo}
+  [1999/01/17 v1.0 (リボン? option)]
+\AtBeginDocument{\tate\message{《リボン付き縦書き原稿用紙》}%
+ \adjustbaseline
+ \kanjiskip\KANJISKIP\LARGE}%
+\renewcommand{\normalsize}{%
+  \@setfontsize\normalsize\@xpt{17}}%
+\def\kanjiencodingdefault{JT2}%
+%\def\kanjiencodingdefault{JT1}%
+\kanjiencoding{\kanjiencodingdefault}%
+\normalsize
+\setbox0\hbox{\char\euc"A1A1}%
+\setlength\Cht{\ht0}
+\setlength\Cdp{\dp0}
+\setlength\Cwd{\wd0}
+\setlength\Cvs{\baselineskip}
+\setlength\Chs{\wd0}
+\newcommand{\small}{%
+  \@setfontsize\small\@ixpt{11}}%
+\newcommand{\footnotesize}{%
+  \@setfontsize\footnotesize\@viiipt{9.5}}%
+\newcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
+\newcommand{\tiny}{\@setfontsize\tiny\@vpt\@vipt}
+\newcommand{\Large}{\@setfontsize\Large\@xivpt{34.85}}
+\newcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{41.57}}
+%%****************************
+\newbox\halfbox
+\newbox\originbox
+\newenvironment{ribon}{%
+ \gdef\nibunkatu{%
+  \loop\ifvbox\originbox
+        \setbox\halfbox=\vsplit\originbox to 10\baselineskip
+        \vbox{\unvbox\halfbox}%
+        \vskip23.5mm
+        \setbox\halfbox=\vsplit\originbox to 10\baselineskip
+        \vbox{\unvbox\halfbox}%
+    \clearpage
+  \repeat}%
+\setbox\originbox=\vbox\bgroup
+ \if@kinsoku
+ \hsize=191.4mm\else\hsize=189.8mm\fi}{\egroup\nibunkatu}%
+\newlength{\@masutaka}
+\newlength{\@masuhaba}
+\newlength{\@gyokan}
+\newlength{\@keihaba}
+\newlength{\@thosei}
+\newlength{\@yhosei}
+\newlength{\KANJISKIP}
+\arrayrulewidth=.5pt
+\paperheight=364mm
+\paperwidth=257mm
+ \textwidth=192mm
+\textheight=315.3mm
+\oddsidemargin=-35mm
+\evensidemargin\oddsidemargin
+\topmargin=-18mm
+\setlength{\@masutaka}{7.8mm}
+\setlength{\@masuhaba}{13mm}
+\setlength{\@gyokan}{.5mm}
+\setlength{\@keihaba}{315mm}
+\setlength{\@thosei}{9mm}
+\setlength{\@yhosei}{3.5mm}
+\setlength{\KANJISKIP}{11.1pt}
+\def\masutaka{\vrule width 0mm height \@masutaka}
+\def\gyo{\masutaka\\ \hline}
+\def\retu{%
+ \setlength{\tabcolsep}{0mm}
+ \begin{tabular}{|p{\@masuhaba}|}%\hline
+ \gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo
+ \gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\masutaka%\gyo
+ \end{tabular}\hskip\@gyokan}
+%\font\@ribon gribon10 at 21.5pt
+\font\@ribon gerib10 at 21.5pt
+\def\@tribon{{\@ribon\symbol{65}}}
+\def\@bribon{{\@ribon\symbol{66}}}
+\def\masu{%
+ \begin{tabular}{l}
+ \begin{tabular}{l@{\hskip1.8mm}|p{13mm}|@{\hskip\@gyokan}l}
+ \noalign{\hrule depth 1\arrayrulewidth}
+ \hspace{-1.2mm}\retu\retu\retu\retu\retu\retu\retu\retu\retu\retu &
+  \vskip-59.5mm\@tribon\newline\vskip96.5mm\@bribon\vfil&
+ \retu\retu\retu\retu\retu\retu\retu\retu\retu\retu\\
+ \noalign{\hrule height 1\arrayrulewidth}
+ \end{tabular}
+ \if@genkouid \\{\small\the\@signature}\fi
+ \end{tabular}}
+
+\DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+%\DeclareFontShape{JT1}{mc}{m}{n}{<-> gtmin10}{}
+\endinput
+%% End of file `ribon.clo'.

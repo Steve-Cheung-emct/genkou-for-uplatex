@@ -1,0 +1,56 @@
+\documentclass[禁則,森,便箋]{genkou}
+
+\usepackage{pxbase}             % \UIを使用する，可以使用Unicode万国码插入生僻汉字
+\usepackage[uplatex]{otf}
+
+%%%% PDF 作者信息及超鏈接設定
+\usepackage[dvipdfmx, 
+    pdfdirection=R2L, % 開く方向%從右往左翻頁
+    colorlinks=true,   %設置超鏈接的顔色
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=cyan,
+    bookmarks=true, % PDFにしおりをつける
+    bookmarksnumbered=true, % しおりに節番号などをつける
+  ]{hyperref}
+\hypersetup{ %
+    pdftitle= {脂硯齋重評石頭記-庚辰本 （ the Tale of the Stone (GengChen Edition) ）} , % PDFのタイトル
+    pdfauthor= {曹雪芹（ Cao Xue Qin ）} , % PDFの作成者
+    pdfkeywords = {Chinese Classical Novel },  %関鍵詞
+    pdfsubject = {Chinese Classical Literature of Qing Dynasty},    % 主題
+    pdfcreator  = {up\LaTeX\ with package  hyperref },    %工具
+    pdfproducer = {dvipdfmx(20180506)},   %製作軟件
+}
+
+% PDFにしたときのしおりの文字化けを防ぐ  %使書簽支持CJK字體 内碼
+\usepackage{pxjahyper}
+
+
+\textwidth=60 zw
+
+
+
+\begin{document}
+
+\par \noindent  { \gtfamily \bfseries 月下獨酌 } \hfill {\gtfamily 唐\quad 李白} \hspace{50 mm}
+
+\一字下げ 花間一壺酒，獨酌無相親。\\
+舉杯邀明月，對影成三人。\\
+月既不解飲，影徒隨我身。\\
+暫伴月將影，行樂須及春。\\
+我歌月徘徊，我舞影零亂。\\
+醒時同交歡，醉後各分散。\\
+永結無情遊，相期邈雲漢。
+
+\clearpage
+
+\par \noindent  { \gtfamily \bfseries 春望 } \hfill {\gtfamily 唐\quad 杜甫}  \hspace{50 mm}
+
+國破山河在，城春草木深。\\
+感時花濺淚，恨別鳥驚心。\\
+烽火連三月，家書抵萬金。\\
+白頭搔更短，渾欲不勝簪。\\
+
+
+\end{document}

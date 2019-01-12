@@ -1,0 +1,313 @@
+%%---------- genkomac.sty ----------------------------------
+\ProvidesPackage{genkomac}[1999/01/17]
+%% ルビ
+\newcount\@rubykanacount
+\newcount\@rubygokucount
+\newcount\@mojisuu
+\def\@mojikazoe#1{%
+ \@tfor\member:=#1\do{\advance\@mojisuu by 1}}%
+\def\@rubyyomi#1{%
+ \@for\member:=#1\do{%
+  \advance\@rubykanacount by 1
+  \ifnum\@rubykanacount=1\xdef\@rubykanai{\member}\else
+   \ifnum\@rubykanacount=2\xdef\@rubykanaii{\member}\else
+    \ifnum\@rubykanacount=3\xdef\@rubykanaiii{\member}\else
+     \ifnum\@rubykanacount=4\xdef\@rubykanaiv{\member}\else
+      \ifnum\@rubykanacount=5\xdef\@rubykanav{\member}\else
+       \ifnum\@rubykanacount=6\xdef\@rubykanavi{\member}%
+\fi\fi\fi\fi\fi\fi}}%
+\def\@rubygoku#1{%
+ \@tfor\member:=#1\do{%
+  \advance\@rubygokucount by 1
+  \ifnum\@rubygokucount=1\xdef\@rubygokui{\member}\else
+   \ifnum\@rubygokucount=2\xdef\@rubygokuii{\member}\else
+    \ifnum\@rubygokucount=3\xdef\@rubygokuiii{\member}\else
+     \ifnum\@rubygokucount=4\xdef\@rubygokuiv{\member}\else
+      \ifnum\@rubygokucount=5\xdef\@rubygokuv{\member}\else
+       \ifnum\@rubygokucount=6\xdef\@rubygokuvi{\member}%
+\fi\fi\fi\fi\fi\fi}}%
+\def\@rubyi{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize
+ \@rubykanai\hss}}\nointerlineskip\kern.5mm\hbox to 1zw{%
+ \hss\@rubygokui\hss}}}}}%
+\def\@rubyii{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaii\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuii\hss}}}}}%
+\def\@rubyiii{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaiii\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuiii\hss}}}}}%
+\def\@rubyiv{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaiv\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuiv\hss}}}}}%
+\def\@rubyv{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanav\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuv\hss}}}}}%
+\def\@rubyvi{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanavi\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuvi\hss}}}}}%
+\def\@tasu{\hspace{\kanjiskip}}
+\def\ruby{\@ifstar\@@ruby\@ruby}
+\def\@@ruby#1#2{%
+ \@mojisuu=0\relax
+ \@rubykanacount=0\relax
+ \@rubygokucount=0\relax
+ \@mojikazoe{#1}%
+ \@rubyyomi{#2}%
+ \@rubygoku{#1}%
+ \leavevmode
+ \@rubyi\@tasu\ifnum\@mojisuu>1\@rubyii\@tasu
+ \ifnum\@mojisuu>2\@rubyiii\@tasu\ifnum\@mojisuu>3\@rubyiv\@tasu
+ \ifnum\@mojisuu>4\@rubyv\@tasu\ifnum\@mojisuu>5\@rubyvi\@tasu
+ \ifnum\@mojisuu>6\message{注意！ルビは一度に６文字までです。^^J
+ 文章が失われます。続けてルビを振る場合は^^J
+ \backslash ruby* を使ってください。}\fi\fi\fi\fi\fi\fi}
+\def\@ruby#1#2{\@tasu\@@ruby{#1}{#2}}
+%% fake な見出しの定義
+\newcounter{part}\setcounter{part}{0}
+\newcounter{chapter}\setcounter{chapter}{0}
+\newcounter{section}\setcounter{section}{0}
+\newcounter{subsection}\setcounter{subsection}{0}
+\def\@@全角数字#1{%
+  \ifcase#1\unskip\or １\or ２\or ３\or ４\or ５\or%
+                      ６\or ７\or ８\or ９\else%
+                      \@clerr\fi\relax}%
+\newlength{\@hindent}
+\def\@全角数字#1{%
+  \@@全角数字{\@nameuse{c@#1}}}%
+\def\part#1{{\parindent\z@\refstepcounter{part}\clearpage
+  \settowidth{\@hindent}{第\@全角数字{part}部　\hspace{\kanjiskip}}%
+  第\@全角数字{part}部　\hangindent\@hindent#1\clearpage}}%
+\def\chapter#1{{\parindent\z@\refstepcounter{chapter}\clearpage
+  \settowidth{\@hindent}{第\@全角数字{chapter}章　\hspace{\kanjiskip}}%
+  第\@全角数字{chapter}章　\hangindent\@hindent#1\nopagebreak\par
+  \setcounter{section}{0}}}%
+\def\section#1{{\parindent\z@\refstepcounter{section}\par
+  \settowidth{\@hindent}{\@全角数字{section}　\hspace{\kanjiskip}}%
+  \@全角数字{section}　\hangindent\@hindent#1\nopagebreak\par
+  \setcounter{subsection}{0}}}%
+\def\subsection#1{{\parindent\z@\refstepcounter{subsection}\par
+  \settowidth{\@hindent}{\@全角数字{section}・\@全角数字{subsection}%
+  　\hspace{\kanjiskip}}%
+  \@全角数字{section}・\@全角数字{subsection}　\hangindent\@hindent#1
+  \nopagebreak\par}}%
+\def\subsubsection#1{%
+  \settowidth{\@hindent}{　\hspace{\kanjiskip}}%
+  \par\hangindent\h@indent#1\nopagebreak\par}%
+\newcounter{gencount}
+%% fake な enumerate 環境
+\renewenvironment{enumerate}{%
+ \begin{list}{%
+ \iftdir\hfil\kanji\arabic{gencount}、 \else
+ \hfil\arabic{gencount}.\fi}{%
+ \topsep=0mm \partopsep=0mm \parsep=0mm
+ \itemsep=0mm \rightmargin=0mm \itemindent=0mm
+ \iftdir \labelsep=.2zw \labelwidth=4.95zw\else
+ \labelsep=.5zw\labelwidth=3.5zw\fi
+ \leftmargin=\labelwidth \listparindent=0mm
+ \usecounter{gencount}
+}}{\end{list}}
+% fake な itemize 環境
+\renewenvironment{itemize}{%
+ \begin{list}{\hfil \textbullet\hfil}{%
+ \iftdir \leftmargin3.3zw \else \leftmargin3.5zw\fi
+ \labelwidth\leftmargin \topsep=0pt \parsep0pt
+ \labelsep0pt\itemindent0pt}}{\end{list}}
+\def\biao{\@ifnextchar[{\@biao}{%
+ \@biao[無指定五字]}}
+\def\@biao[#1]{%
+ \list{}{%
+ \let\makelabel\biaolabel\settowidth{\labelwidth}{#1}%
+ \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}%
+ \setlength{\parsep}{0pt}\setlength{\labelsep}{1zw}%
+ \addtolength{\labelsep}{2\kanjiskip}%
+ \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{1zw}%
+ \addtolength{\leftmargin}{2\kanjiskip}
+ \setlength{\itemsep}{0pt}\setlength{\itemindent}{0pt}}}%
+\let\endbiao\endlist
+\def\biaolabel#1{\bfseries#1\hfill\inhibitglue}%
+\def\一字下げ{\parindent=1zw\advance\parindent by \kanjiskip}%
+\def\空行{\vspace{\baselineskip}\par}%
+\newskip\@@waouskip
+\@@waouskip=\z@ plus 1fill\relax
+\def\@waouskip{\hspace\@@waouskip}
+\def\@maeaki{\hspace{\KANJISKIP}\@waouskip}
+\def\@usiroaki{\hspace{\KANJISKIP}\@waouskip}
+\def\oubun#1{%
+ \if@kinsoku
+ \@maeaki#1\@usiroaki\else
+ \hspace{\kanjiskip}#1\hspace{\kanjiskip}\fi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 自定義的字體
+
+% 繁體中文 adobe 明體 & adobe 繁黑體
+\DeclareFontFamily{JY2}{upmsl}{}
+\DeclareFontFamily{JT2}{upmsl}{}
+
+\DeclareFontShape{JY2}{upmsl}{m}{n}{<->s*[0.961000]upmsl-h}{}
+\DeclareFontShape{JY2}{upmsl}{m}{it}{<->ssub*upmsl/m/n}{}
+\DeclareFontShape{JY2}{upmsl}{m}{sl}{<->ssub*upmsl/m/n}{}
+\DeclareFontShape{JY2}{upmsl}{m}{sc}{<->ssub*upmsl/m/n}{}
+
+\DeclareFontShape{JT2}{upmsl}{m}{n}{<->s*[0.961000]upmsl-v}{}
+\DeclareFontShape{JT2}{upmsl}{m}{it}{<->ssub*upmsl/m/n}{}
+\DeclareFontShape{JT2}{upmsl}{m}{sl}{<->ssub*upmsl/m/n}{}
+\DeclareFontShape{JT2}{upmsl}{m}{sc}{<->ssub*upmsl/m/n}{}
+
+\DeclareRobustCommand\upmsl{\kanjifamily{upmsl}\selectfont}
+
+
+\DeclareFontFamily{JY2}{upmhm}{}
+\DeclareFontFamily{JT2}{upmhm}{}
+
+\DeclareFontShape{JY2}{upmhm}{m}{n}{<->s*[0.961000]upmhm-h}{}
+\DeclareFontShape{JT2}{upmhm}{m}{it}{<->ssub*upmhm/m/n}{}
+\DeclareFontShape{JT2}{upmhm}{m}{sl}{<->ssub*upmhm/m/n}{}
+\DeclareFontShape{JT2}{upmhm}{m}{sc}{<->ssub*upmhm/m/n}{}
+
+\DeclareFontShape{JT2}{upmhm}{m}{n}{<->s*[0.961000]upmhm-v}{}
+\DeclareFontShape{JT2}{upmhm}{m}{it}{<->ssub*upmhm/m/n}{}
+\DeclareFontShape{JT2}{upmhm}{m}{sl}{<->ssub*upmhm/m/n}{}
+\DeclareFontShape{JT2}{upmhm}{m}{sc}{<->ssub*upmhm/m/n}{}
+
+\DeclareRobustCommand\upmhm{\kanjifamily{upmhm}\selectfont}
+
+
+
+% 繁體中文 華康明體&微軟正黑
+\DeclareFontFamily{JY2}{utmr}{}
+\DeclareFontFamily{JT2}{utmr}{}
+
+\DeclareFontShape{JY2}{utmr}{m}{n}{<->s*[0.961000]otf-utmr-h}{}
+\DeclareFontShape{JY2}{utmr}{m}{it}{<->ssub*utmr/m/n}{}
+\DeclareFontShape{JY2}{utmr}{m}{sl}{<->ssub*utmr/m/n}{}
+\DeclareFontShape{JY2}{utmr}{m}{sc}{<->ssub*utmr/m/n}{}
+
+\DeclareFontShape{JT2}{utmr}{m}{n}{<->s*[0.961000]otf-utmr-v}{}
+\DeclareFontShape{JT2}{utmr}{m}{it}{<->ssub*utmr/m/n}{}
+\DeclareFontShape{JT2}{utmr}{m}{sl}{<->ssub*utmr/m/n}{}
+\DeclareFontShape{JT2}{utmr}{m}{sc}{<->ssub*utmr/m/n}{}
+
+\DeclareRobustCommand\utmin{\kanjifamily{utmr}\selectfont}
+
+
+\DeclareFontFamily{JY2}{utgr}{}
+\DeclareFontFamily{JT2}{utgr}{}
+
+\DeclareFontShape{JY2}{utgr}{m}{n}{<->s*[0.961000]otf-utgr-h}{}
+\DeclareFontShape{JT2}{utgr}{m}{it}{<->ssub*utgr/m/n}{}
+\DeclareFontShape{JT2}{utgr}{m}{sl}{<->ssub*utgr/m/n}{}
+\DeclareFontShape{JT2}{utgr}{m}{sc}{<->ssub*utgr/m/n}{}
+
+\DeclareFontShape{JT2}{utgr}{m}{n}{<->s*[0.961000]otf-utgr-v}{}
+\DeclareFontShape{JT2}{utgr}{m}{it}{<->ssub*utgr/m/n}{}
+\DeclareFontShape{JT2}{utgr}{m}{sl}{<->ssub*utgr/m/n}{}
+\DeclareFontShape{JT2}{utgr}{m}{sc}{<->ssub*utgr/m/n}{}
+
+\DeclareRobustCommand\uthei{\kanjifamily{utgr}\selectfont}
+
+
+
+% 簡體中文 adobe 細宋體 & adobe 黑體
+\DeclareFontFamily{JY2}{upstsl}{}
+\DeclareFontFamily{JT2}{upstsl}{}
+
+\DeclareFontShape{JY2}{upstsl}{m}{n}{<->s*[0.961000]upstsl-h}{}
+\DeclareFontShape{JY2}{upstsl}{m}{it}{<->ssub*upstsl/m/n}{}
+\DeclareFontShape{JY2}{upstsl}{m}{sl}{<->ssub*upstsl/m/n}{}
+\DeclareFontShape{JY2}{upstsl}{m}{sc}{<->ssub*upstsl/m/n}{}
+
+\DeclareFontShape{JT2}{upstsl}{m}{n}{<->s*[0.961000]upstsl-v}{}
+\DeclareFontShape{JT2}{upstsl}{m}{it}{<->ssub*upstsl/m/n}{}
+\DeclareFontShape{JT2}{upstsl}{m}{sl}{<->ssub*upstsl/m/n}{}
+\DeclareFontShape{JT2}{upstsl}{m}{sc}{<->ssub*upstsl/m/n}{}
+
+\DeclareRobustCommand\upstsl{\kanjifamily{upstsl}\selectfont}
+
+
+\DeclareFontFamily{JY2}{upstht}{}
+\DeclareFontFamily{JT2}{upstht}{}
+
+\DeclareFontShape{JY2}{upstht}{m}{n}{<->s*[0.961000]upstht-h}{}
+\DeclareFontShape{JT2}{upstht}{m}{it}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sl}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sc}{<->ssub*upstht/m/n}{}
+
+\DeclareFontShape{JT2}{upstht}{m}{n}{<->s*[0.961000]upstht-v}{}
+\DeclareFontShape{JT2}{upstht}{m}{it}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sl}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sc}{<->ssub*upstht/m/n}{}
+
+\DeclareRobustCommand\upstht{\kanjifamily{upstht}\selectfont}
+
+
+
+% 簡體中文 adobe 仿宋體 & adobe 楷體
+\DeclareFontFamily{JY2}{ucmr}{}
+\DeclareFontFamily{JT2}{ucmr}{}
+
+\DeclareFontShape{JY2}{ucmr}{m}{n}{<->s*[0.961000]otf-ucmr-h}{}
+\DeclareFontShape{JY2}{ucmr}{m}{it}{<->ssub*ucmr/m/n}{}
+\DeclareFontShape{JY2}{ucmr}{m}{sl}{<->ssub*ucmr/m/n}{}
+\DeclareFontShape{JY2}{ucmr}{m}{sc}{<->ssub*ucmr/m/n}{}
+
+\DeclareFontShape{JT2}{ucmr}{m}{n}{<->s*[0.961000]otf-ucmr-v}{}
+\DeclareFontShape{JT2}{ucmr}{m}{it}{<->ssub*ucmr/m/n}{}
+\DeclareFontShape{JT2}{ucmr}{m}{sl}{<->ssub*ucmr/m/n}{}
+\DeclareFontShape{JT2}{ucmr}{m}{sc}{<->ssub*ucmr/m/n}{}
+
+\DeclareRobustCommand\usong{\kanjifamily{ucmr}\selectfont}
+
+
+\DeclareFontFamily{JY2}{ucgr}{}
+\DeclareFontFamily{JT2}{ucgr}{}
+
+\DeclareFontShape{JY2}{ucgr}{m}{n}{<->s*[0.961000]otf-ucgr-h}{}
+\DeclareFontShape{JT2}{ucgr}{m}{it}{<->ssub*ucgr/m/n}{}
+\DeclareFontShape{JT2}{ucgr}{m}{sl}{<->ssub*ucgr/m/n}{}
+\DeclareFontShape{JT2}{ucgr}{m}{sc}{<->ssub*ucgr/m/n}{}
+
+\DeclareFontShape{JT2}{ucgr}{m}{n}{<->s*[0.961000]otf-ucgr-v}{}
+\DeclareFontShape{JT2}{ucgr}{m}{it}{<->ssub*ucgr/m/n}{}
+\DeclareFontShape{JT2}{ucgr}{m}{sl}{<->ssub*ucgr/m/n}{}
+\DeclareFontShape{JT2}{ucgr}{m}{sc}{<->ssub*ucgr/m/n}{}
+
+\DeclareRobustCommand\ukai{\kanjifamily{ucgr}\selectfont}
+
+
+
+\AtBeginDvi{%
+  \special{pdf:mapline otf-utmr-h	UniCNS-UCS2-H	:0:mingliu.ttc }%!PS MingLiU
+  \special{pdf:mapline otf-utmr-v	UniCNS-UCS2-V	:0:mingliu.ttc }%!PS MingLiU
+  \special{pdf:mapline otf-utgr-h	UniCNS-UCS2-H	:0:msjh.ttc }%!PS MicrosoftJhengHeiRegular
+  \special{pdf:mapline otf-utgr-v	UniCNS-UCS2-V	:0:msjh.ttc }%!PS MicrosoftJhengHeiRegular
+  \special{pdf:mapline otf-ucmr-h	UniGB-UCS2-H	AdobeFangsongStd-Regular.otf}
+  \special{pdf:mapline otf-ucmr-v	UniGB-UCS2-V	AdobeFangsongStd-Regular.otf}
+  \special{pdf:mapline otf-ucgr-h	UniGB-UCS2-H	AdobeKaitiStd-Regular.otf }
+  \special{pdf:mapline otf-ucgr-v	UniGB-UCS2-V	AdobeKaitiStd-Regular.otf }
+  \special{pdf:mapline upstsl-h	UniGB-UTF16-H	AdobeSongStd-Light.otf}
+  \special{pdf:mapline upstsl-v	UniGB-UTF16-V	AdobeSongStd-Light.otf}
+  \special{pdf:mapline upstht-h UniGB-UTF16-H	AdobeHeitiStd-Regular.otf}
+  \special{pdf:mapline upstht-v UniGB-UTF16-V	AdobeHeitiStd-Regular.otf}
+  \special{pdf:mapline upmsl-h	UniCNS-UTF16-H	AdobeMingStd-Light.otf}
+  \special{pdf:mapline upmsl-v	UniCNS-UTF16-V	AdobeMingStd-Light.otf}
+  \special{pdf:mapline upmhm-h	UniCNS-UTF16-H	AdobeFanHeitiStd-Bold.otf}
+  \special{pdf:mapline upmhm-v	UniCNS-UTF16-V	AdobeFanHeitiStd-Bold.otf}
+} %
+
+
+
+
+
+
+
+\endinput
+%% end of genkomac.sty

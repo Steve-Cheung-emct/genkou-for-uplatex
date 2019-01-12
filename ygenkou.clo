@@ -1,0 +1,96 @@
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesFile{ygenkou.clo}
+  [1999/01/17 v1.0 (横 option)]
+\AtBeginDocument{\message{《横書き原稿用紙》}}%
+\renewcommand{\normalsize}{%
+  \@setfontsize\normalsize\@xpt{17}}%
+\def\kanjiencodingdefault{JY2}%
+%\def\kanjiencodingdefault{JY1}%
+\kanjiencoding{\kanjiencodingdefault}%
+\normalsize
+\setbox0\hbox{\char\euc"A1A1}%
+\setlength\Cht{\ht0}
+\setlength\Cdp{\dp0}
+\setlength\Cwd{\wd0}
+\setlength\Cvs{\baselineskip}
+\setlength\Chs{\wd0}
+\newcommand{\small}{%
+  \@setfontsize\small\@ixpt{11}}%
+\newcommand{\footnotesize}{%
+  \@setfontsize\footnotesize\@viiipt{9.5}}%
+\newcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
+\newcommand{\tiny}{\@setfontsize\tiny\@vpt\@vipt}
+\newcommand{\large}{\@setfontsize\large\@xiipt{29.6}}
+\newcommand{\Large}{\@setfontsize\Large\@xivpt{33.9}}
+%%****************************
+\newlength{\@masutaka}
+\newlength{\@masuhaba}
+\newlength{\@gyokan}
+\newlength{\@keihaba}
+\newlength{\@thosei}
+\newlength{\@yhosei}
+\newlength{\KANJISKIP}
+%% A4 横組み
+\ifaiv
+\AtBeginDocument{\Large\kanjiskip\KANJISKIP}
+\arrayrulewidth=.3pt
+\paperheight=296mm
+\paperwidth=210mm
+\if@kinsoku
+ \textwidth=166.8mm\else
+ \textwidth=166mm\fi
+\textheight=231mm
+\oddsidemargin=-28.5mm
+\evensidemargin\oddsidemargin
+\topmargin=-17.5mm\relax
+\setlength{\@masutaka}{8.5mm}
+\setlength{\@masuhaba}{8.5mm}
+\setlength{\@keihaba}{170mm}
+\setlength{\@thosei}{8.5mm}
+\setlength{\@yhosei}{-5mm}
+\setlength{\KANJISKIP}{10.3pt}
+\setlength{\doublerulesep}{1.5mm}
+\fi
+%% B5 横組み
+\ifbv
+\AtBeginDocument{\large\kanjiskip\KANJISKIP}
+\arrayrulewidth=.3pt
+\paperheight=257mm
+\paperwidth=182mm
+\if@kinsoku
+ \textwidth=139.5mm\else
+ \textwidth=139mm\fi
+\textheight=202mm
+\oddsidemargin=-29mm
+\evensidemargin\oddsidemargin
+\topmargin=-25mm
+\setlength{\@masutaka}{7mm}
+\setlength{\@masuhaba}{7.1mm}
+\setlength{\@keihaba}{142.2mm}
+\setlength{\@thosei}{1.5mm}
+\setlength{\@yhosei}{-5mm}
+\setlength{\KANJISKIP}{8.7pt}
+\setlength{\doublerulesep}{1.5mm}
+\fi
+\ifbiv
+\message{Ｂ４横書きはサポートされていません．Ａ４を使用します．}
+\fi
+\def\masutaka{\vrule width 0mm height \@masutaka}
+\def\gyo{&&&&&&&&&&&&&&&&&&&\masutaka\\ \hline\hline}
+\def\masu{%
+ \begin{tabular}{|p{\@keihaba}|}
+ \begin{tabular}{p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|%
+                 p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|%
+                 p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|%
+                 p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|%
+                 p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}|p{\@masuhaba}}\hline
+                 \gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo
+                 \gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo\gyo
+                 &&&&&&&&&&&&&&&&&&&\masutaka\\ \hline
+ \end{tabular}\\
+ \if@genkouid\multicolumn{1}{l}{\small\the\@signature}\fi
+ \end{tabular}}
+\DeclareFontShape{JY2}{mc}{m}{n}{<-> gmin10}{}
+%\DeclareFontShape{JY1}{mc}{m}{n}{<-> gmin10}{}
+\endinput
+%% End of file `ygenkou.clo'.

@@ -1,0 +1,688 @@
+\documentclass[a4,11pt,uplatex,openleft]{jsarticle}
+
+%\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textwidth}{10mm}
+\addtolength{\topmargin}{-10mm}
+\addtolength{\textheight}{20mm}
+\makeatletter
+\def\biao{\@ifnextchar[{\@biao}{\@biao[無指定五字]}}
+\def\@biao[#1]{%
+  \list{}{%
+  \let\makelabel\biaolabel\settowidth{\labelwidth}{#1}%
+  \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{1zw}%
+  \setlength{\topsep}{\baselineskip}\setlength{\partopsep}{0pt}%
+  \setlength{\parsep}{0pt}\setlength{\labelsep}{1zw}%
+  \setlength{\itemsep}{0pt}\setlength{\itemindent}{0pt}}}%
+  \let\endbiao\endlist
+\def\biaolabel#1{\bfseries#1\hfill\inhibitglue}%
+\makeatother
+
+
+%\usepackage[fontset=windows]{ctex}
+%使用此package前請先閲讀ctex.pdf 手冊，目前中文繁體支持很差，
+%非常遺憾，OS X 不支持 ctex package在 uplatex+dvipdfmx 配置下運用。
+%Windows和Linux用戶嘗試。
+%除楷體和宋體外，已知隸書字體 僅支援 簡體中文使用。
+
+\usepackage{color}
+\usepackage{xcolor}
+\newcommand{\black}[1]{\textcolor{black}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\magenta}[1]{\textcolor{magenta}{#1}}
+
+\usepackage[dvipdfmx,
+  pdfdirection=R2L, % 開く方向%從右往左翻頁
+  colorlinks=true,   %設置超鏈接的顔色
+  linkcolor=blue,
+  filecolor=blue,
+  urlcolor=blue,
+  citecolor=cyan,
+  bookmarks=true, % PDFにしおりをつける
+  bookmarksnumbered=true, % しおりに節番号などをつける
+ ]{hyperref}
+
+\hypersetup{ %
+  pdftitle = { up\LaTeX\ 原稿用紙使用説明 version 1.0b（ \today\  ）}, % PDFのタイトル
+  pdfauthor = {602644360@qq.com}, % PDFの作成者
+  pdfkeywords = {\TeX\  },  %関鍵詞
+  pdfsubject = { 原稿用紙 },    % 主題
+  pdfcreator  = {up\LaTeX\ with package  hyperref },    %工具
+  pdfproducer = {dvipdfmx(20180506)},   %製作軟件及版本
+}
+% PDFにしたときのしおりの文字化けを防ぐ  %使書簽支持CJK字體 內碼
+\usepackage{pxjahyper}
+
+%字體設置
+
+\usepackage[T1]{fontenc}                        % フォントでT1を使うこと
+\usepackage[utf8]{inputenc}                    % ファイルがUTF8であること
+\usepackage[uplatex,deluxe]{otf}              %多書體支持
+
+%設置代碼環境
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\small \gtfamily, % size of fonts used for the code或改成\small\monaco稍大
+  numbers=left,                        % 设置行号
+  numberstyle=\tiny\gtfamily,            % 设置行号字体大小
+  columns=fullflexible,
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  tabsize=4,
+  commentstyle=\color{black},    % 设置注释颜色
+  escapeinside={(*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{black},       % 设置keyword颜色
+  stringstyle=\color{black}\gtfamily,     % string literal style
+  frame=single,                        % 设置有边框
+  rulesepcolor=\color{red!20!green!20!blue!20},
+ % identifierstyle=\color{red},
+  language=sh,
+}
+
+\usepackage{float}   %浮動體
+
+%%% 建立註腳（在縱組中為傍注，即葉邊左側）
+\usepackage{perpage} %the perpage package ，使註腳的編號每頁更新一次
+\MakePerPage{footnote} %the perpage package command
+
+%%% 行距的設定
+\usepackage{setspace}
+\singlespacing                   %單倍行距
+%\onehalfspacing                  %% 1.5倍行距
+%\doublespacing                 %雙倍行距
+
+\title{\Large \gtfamily up\LaTeX 原稿用紙使用説明\\ version 1.0b }
+\author{\CID{8015}菅野善久  \footnotemark[1]   , \CID{8015}Steve Cheung \footnotemark[2]   }
+\footnotetext[1]{
+ 本作的原著者名爲菅野善久，他的 email ：\blue{ koshian@misao.gr.jp  } . \\
+ 原博客網頁鏈接：\red{ http://www.foxking.org/oldsite/pc/genkoyoshi-on-tex.html  } \\
+ 本文的另一個參考鏈接來自：\red { http://konoyonohana.blog.fc2.com/blog-entry-167.html }
+}
+\footnotetext[2]{
+ 我將原本p\LaTeX 下的類文件中的字體選項 JY1 JT1改成了JY2 JT2，
+ 並增加了一些中文字體的設定。\\
+ 翻譯日期：2019/01/12
+}
+\date{ \normalsize 第一次發行 17 Jan. 1999 \\ Modefied by SC on 9 Jan. 2019  }
+
+
+
+\begin{document}
+\mcfamily
+% \fangsong   % 需配合ctex package在Windows和Linux環境下使用。
+
+\maketitle
+
+\begin{abstract}
+\doublespacing    \large
+\par  非常感謝您使用原稿用紙。雖然它被稱為包，
+但它實際上是一組以類文件 genkou.cls 為核心的相關文件。
+這個宏的目的是在 \TeX 中實現和手稿紙一樣的外觀。同時輸出漢字字符和方格。
+\par \hfill ——著者自云
+\vspace{2 zw}
+\par  原稿紙或稱為稿紙，是一種用以書寫爲主要用途的紙張，每張紙均有 200～600 個方格，
+而每個方格均可以填進一個漢字或其他東亞方塊字（如日語、朝鮮諺文等）及標點符號。
+原稿紙可以鉛筆、圓珠筆甚至是毛筆書寫。
+\par \hfill ——《維基百科》
+\end{abstract}
+\clearpage
+{  \singlespacing    \fontsize{12pt}{17pt}\selectfont
+\tableofcontents }
+\clearpage
+\section{系統環境}
+\par up\TeX/up\LaTeX 專用。\\
+※ 請\hspace{3pt}使用 \TeX \hspace{3pt} Live 2018 或者 Drag\CID{7}Drop Up\TeX
+\hspace{3pt}  2018，詳見\ref{uptex-xiongben}
+
+\section{安裝説明}
+\subsection{安裝準備}
+\begin{enumerate}
+\item 請將genkou.cls, tgenkou.clo, ygenkou.clo, ribon.clo, binsen.clo,
+genkomac.sty, GENKOUID.TEX, kinsoku.tex 等七個文件，複製到以下文件夾中。
+\begin{lstlisting}
+$TEXMFLOCAL\tex\uplatex\genkou
+\end{lstlisting}
+使用以下命令檢\UTF{67FB}上述過程中出現的 \verb+ $TEXMFLOCAL + 的實際値。
+\begin{lstlisting}
+C:\Windows\system32>kpsewhich -var-value=TEXMFLOCAL
+C:/texlive/texmf-local
+\end{lstlisting}
+\item 請將gtmin10.tfm, gmin10.tfm, min10.tfm 等三個文件，複製到
+下面的文件夾中，以便 DVI 驅動程序使用它。
+\begin{lstlisting}
+*.tfm >>>  $TEXMFLOCAL\fonts\tfm\genkou
+*.vf >>>  $TEXMFLOCAL\fonts\vf\genkou
+\end{lstlisting}
+\item 根據需要重寫GENKOUID.TEX。 可放在編寫文件存放的目錄中。
+為類選項指定 “\verb+ \名前 +” 時，將此文件中指定的字符插入到原稿紙中。
+
+\item 執行 \verb+ mktexlsr+ 和 \verb+ updmap-sys + 刷新文件樹和字體緩存。
+
+\end{enumerate}
+
+
+\subsection{編譯本説明文件}
+首先，使用 ptex2pdf  編譯 g-reademe-zh.tex 。
+\begin{lstlisting}
+uplatex  g-reademe-zh
+ptex2pdf -l -u -od (* "-p A4 " *) g-reademe-zh
+\end{lstlisting}
+\par ※ Windows用戶可以新建一個txt文件，
+然後改後綴的形式保存爲“編譯.bat”，然後雙擊執行之。
+{\bfseries \par 編譯.bat  }
+\begin{lstlisting}
+uplatex  g-reademe-zh
+ptex2pdf -l -u -od (* "-p A4 "  *) g-reademe-zh
+pause
+\end{lstlisting}
+\par \noindent {\bfseries ptex2pdf -l -u -od "-p A4 " foo }
+\qquad \qquad 輸出直立佈局的A4紙。
+\par \noindent {\bfseries ptex2pdf -l -u  -od "-p A4
+\red{-l } " foo } \qquad 輸出橫置佈局(landscape)的A4紙。
+
+\clearpage
+
+\subsection{嘗試編譯示例文件}
+安裝完成後，編譯以下 4 個示例並檢\UTF{67FB}如何使用命令等。
+\begin{itemize}
+\item TSAMPLE.TEX \quad 縱組原稿用紙示例
+\item YSAMPLE.TEX \quad 水準原稿用紙示例
+\item RSAMPLE.TEX \quad 色帶示例
+\item BSAMPLE.TEX \quad 便箋示例
+\end{itemize}
+
+★注意：如果沒有更新字體緩存，上面的示例可能將無法編譯。詳見 \ref{TFM}
+
+\CID{152} % \textsuperscript{\textregistered}  copyright symbol
+1999/01/17 bookworm BYV 01204
+
+\section{創建自己的up\LaTeX 原稿用紙}
+
+\subsection{基本選項紹介}
+\par 為 documentclass 指定 genkou.cls 並根據需要指定選項。
+您可以指定以下五個選項（括號内是選項名稱）。
+\par ★注意： 當設置佈局時，只能使用以下的和制漢字，寫法錯誤將無法通過編譯。
+\begin{enumerate}
+\item 組み方（横，縦，リボン，便箋）
+\item 用紙サイズ（B5，A4，B4）
+\item 桝目の色（空，海，苺，春，墨，秋，森，夜，鮭，鼠，松，菫，無）
+\item 禁則処理（禁則）
+\item 名前入れ（名前）
+\end{enumerate}
+
+翻譯到中文應爲：
+\begin{enumerate}
+\item 佈局（横，縦，絲帶，便簽）
+\item 用紙大小（B5，A4，B4）
+\item 矩陣顏色（空，海，莓，春，墨，秋，森，夜，鮭，鼠，松，\UTF{83EB}，無）
+\item 禁則處理（禁則）
+\item 輸入用戶簽名（名前）
+\end{enumerate}
+
+\par 如果未指定選項，則變為 「縱書，A4，松，無禁則，無簽名」。
+不要指定多個相同類型的選項。會產生謎之錯誤。
+
+\par 指定例：\quad \verb+ \documentclass[横,B5,森]{genkou} +
+
+
+
+\subsection{佈局}
+\par 縱書、橫書、便箋、絲帶「我們經常在義務教育中看到的那些」。
+
+\subsection{用紙}
+\par 紙張尺寸選項僅在指定縱向或橫向時才有意義。
+如果為組合指定了絲帶或便箋，則會自動確定紙張尺寸。
+\par 可以指定的四種組合：＜横,B5＞，＜横,A4＞，＜縦,A4＞，＜縦,B4＞。
+
+
+\subsection{矩陣顔色}
+\par 您可以選擇 13 種不同的顏色（包括無色）。一定先試試它的顏色。
+
+\subsection{禁則處理}
+\par 指定是否選擇禁則處理。 默認無禁則。
+標點符號中會有幾個字符懸掛在網格外部。 當指定 「禁則」 作為選項時，
+根據  \TeX \hspace{3pt} Live 2018  分發中包含的 kinsoku.tex 執行禁則處理。
+
+\subsection{「名前」}
+\par 如果將「名前」指定為選項，則 genkouid.tex 指定的字符將插入到原稿紙的左角。
+在 genkouid.tex 中設定。
+
+\begin{verse}
+\verb+\名前{李\quad 小明}+
+\end{verse}
+\par  \verb+ \名前 + 不要在命令參數中放置包含花括號的宏。
+\par 例如，如果要包含 \verb+ \hspace{10 mm}+ 等，則可以在genkouid.tex 前寫入:\\
+\verb+ \def\SPACE{\hspace{10 mm}} +\\
+\verb+ \名前{李\SPACE 小明}+
+
+
+
+
+\section{基本命令和環境的紹介}
+
+\subsection{基本命令}
+
+\begin{biao}[　　　　　　　　]
+\item[$\backslash$空行]創建一個空行。 ★注意：頁面開頭無效。
+\item[$\backslash$一字下げ]我將段落的開頭減少一個字符。
+它與插入雙字節空格的結果相同。初始沒有縮進。（即此命令等效于 \verb+ \quad +，
+欲使首行退格二字則使用\verb+ \qquad + 命令。 up\TeX 默認段落僅退格一字。）
+\item[$\backslash$oubun]1字節文字只占用半個字寬，
+此命令是用於平衡西文字符占位問題的。\\
+示例：\verb+\oubun{Donald E. Knuth}+。僅當為類選項指定 「禁則」 時它才有效。
+\item[$\backslash$ruby]使用振假名。注意：此振假名和奧村\quad
+晴彥的okumacro.sty 會嚴重衝突。
+奧村的ruby會對行高進行修正，導致一行高度超過genkou.cls定義的高度。
+\verb+\ruby{漢字}{かん,じ}+示例。Ruby 應該用逗號分隔每個字符所振的字。
+Ruby 可以一次最多振 6 個字。
+在對段落的第一個字使用 ruby 時，請將其設置為 \verb+ \ruby* +。
+不要連續使用 \verb+ \ruby + 命令。
+當一次 振假名 超過 7 個字符時，請使用 \verb+ \ruby* +，
+就像第 7 個字符後面的行的開頭一樣。
+\item[$\backslash$part]「當然是」\verb+\part+相同的效果。會翻頁。
+\item[$\backslash$chapter]「當然是」\verb+\chapter+相同的效果。需手動翻頁。
+\item[$\backslash$section]「當然是」\verb+\section+相同的效果。連續番號的產生。
+\item[$\backslash$subsection]「當然是」\verb+\subsection+相同的效果。
+連續番號的產生。
+\item[$\backslash$subsubsection]「當然是」\verb+\subsubsection+
+相同的效果。連續番號的產生。
+\item[$\backslash$pagestyle]未指定時，頁面編號在左上角加下劃線。
+通過在 \verb+ \pagestyle{plain} + 中指定 ，頁碼將出現在頁面下方居中。
+\end{biao}
+★這些命令和環境可能無法與 “Ribbon” 樣式一起使用。
+絲帶風格，請理解為堅實的寫作。
+\subsection{基本環境}
+
+\begin{biao}[　　　  　　　　　]
+\item[enumerate環境]数字式箇条書（項目符號）環境。
+
+\item[itemize環境]\makebox[1zw][c]{\textbullet}箇条書（項目符號）環境。
+「當然是」itemize環境相同的功能。
+\item[biao環境]帶項目標題的項目符號環境。就像這個列出項目再説明的表單一樣。
+如果將字符串指定為選項參數，則字符串的寬度將成為標籤的寬度。
+未指定時，是五個全角字符的寬度。
+\item[ribon環境] 絲帶風格下使用的環境。
+僅當指定 「リボン」選項時，ribon 環境才有意義。
+\end{biao}
+
+
+\section{使用中文字體[可選]}
+
+\begin{table}[h]
+\caption{\fontsize{12pt}{15pt}\selectfont 中文字體選用} % title of Table
+\centering % used for centering table
+\begin{tabular}{|c|c|c|p{7cm}|}% 通过添加 | 来表示是否需要绘制竖线
+
+\hline
+命令    & 文字版本   & 字形    & 所需字體 \\
+\hline
+\verb+ \upmsl + & 繁體中文 &  明體    &    AdobeMingStd-Light.otf \\
+\hline
+\verb+ \upmhm + & 繁體中文 & 繁黑體   &   AdobeFanHeitiStd-Bold.otf \\
+\hline
+\verb+ \utmin + & 繁體中文 & 華康細明體 & mingliu.ttc （ !PS MingLiU） \\
+\hline
+\verb+ \uthei + & 繁體中文 & 微軟正黑  &  msjh.ttc  （ !PS MicrosoftJhengHeiRegular）\\
+\hline
+\verb+ \upstsl + & 簡體中文 &  宋體    &    AdobeSongStd-Light.otf\\
+\hline
+\verb+ \upstht + & 簡體中文 & 黑體  &      AdobeHeitiStd-Regular.otf\\
+\hline
+\verb+ \usong + & 簡體中文 & 仿宋   &     AdobeFangsongStd-Regular.otf\\
+\hline
+\verb+ \ukai + & 簡體中文 & 楷體     &   AdobeKaitiStd-Regular.otf \\
+\hline
+
+\end{tabular}
+\end{table}
+
+以上這些命令都是支持重命名的：如 \verb+ \newcommand{\heiti}{\upstht} +
+
+
+
+
+\section{修改\quad 發佈}
+隨時可以分發或修改它。 無需獲得作者的許可。
+但是，樣本中包含的 短歌版權屬於平成太郎さん(NAH01433)，
+因此如果您希望將其作為此檔案的一部分用於除再分發之外的其他目的，
+請咨詢平成太郎。
+
+\section{已知存在的問題}
+
+\subsection{主要問題}
+\begin{itemize}
+\item \LaTeX 標準類文件的某些命令可用，但它與函數不兼容，使用函數將錯誤。
+\item 您可以使用 \verb+ \section + 指定序號，但無法將它們生成目錄。
+\item 如果使用 1 個字節的字母數字符號，則字母從正方形移位。
+當指定 「禁則」 選項時，通過使用稍後描述的 \verb+ \oubun + 命令，
+可以在西方句子適合網格後生成句子。
+如果未指定 「禁則」 ，則 \verb+ \oubun + 命令無效。
+\end{itemize}
+
+
+\subsection{次要問題}
+
+\subsubsection{could not locate a virtual/physical font for tfm} \label{TFM}
+\par 無法為指定的TFM文件找到某個 *.vf 字體。該問題出現時請先嘗試刷新字體緩存。
+\begin{lstlisting}
+fc-cache -f -r
+mktexlsr
+updmap-sys
+\end{lstlisting}
+
+\par 此時若仍未得到解決，則嘗試以下命令：\\
+UNIX/ OSX/ Linux
+\begin{lstlisting}
+cd /usr/local/texlive/2018/texmf-dist/scripts/cjk-gs-integrate
+sudo perl cjk-gs-integrate.pl --link-texmf --force
+sudo mktexlsr
+\end{lstlisting}
+或 Windows
+\begin{lstlisting}
+cd C:\texlive\2018\texmf-dist\scripts\cjk-gs-integrate
+perl cjk-gs-integrate.pl --link-texmf --force
+mktexlsr
+\end{lstlisting}
+注意：Windows下使用Perl命令需要下載ActivePerl 軟件包
+\footnote{ActivePerl 軟件包下載鏈接：
+https://www.activestate.com/products/activeperl/downloads/}
+
+\subsubsection{ dvipdfmx:warning: Some characters may not be displayed or printed.}
+出現此問題説明你使用的字符映射中出現了一個位於較高碼位的替代。
+可能的問題就是字體無法正確顯示你要的字形，但是字還是那個字
+（針對日語JIS90舊字形和JIS2004新字形的替換）。
+
+
+\subsubsection{  dvipdfmx:warning: Glyph for CID 16861 missing in font "xxx.otf". }
+
+\par 你的自定義字體缺字。
+\par 臨時解決辦法： \verb+ \CID{16861} + ，
+當然這個CID鍵來自5078.Adobe-Japan1-6.pdf，
+在網上搜索即可得到。
+
+永久解決辦法：此問題除了更換字體，沒有辦法解決。
+
+
+\subsubsection{自定義字體后，段落無法自動換行}
+需設置 \verb+ \textwidth=60 zw +解決之。其中60 zw是當前normalsize下，
+一行目顯示的全角字數。須根據縱橫佈局自己調整。
+
+\CID{152} % \textsuperscript{\textregistered}  copyright symbol
+1999/01/17 bookworm BYV 01204 
+
+\CID{152} % \textsuperscript{\textregistered}  copyright symbol
+2019/01/12  SteveCheung 子康
+\clearpage
+
+\section*{附\quad 錄}
+
+
+\begin{appendix}
+
+
+\section{up\LaTeX 字體的配置}
+\par  通常，up\LaTeX 使用{\bfseries dvipdfmx package } 進行pdf 輸出 ，
+您可以先嘗試使用以下命令瀏覽本機支持的東亞漢字字族。\\
+※ 請\hspace{3pt}以\red{管理員權限執行} ，
+OS X / Linux系統中使用 \red{\bfseries sudo} 十分必要。
+\begin{lstlisting}
+kanji-config-updmap-sys status
+\end{lstlisting}
+
+系統會回顯您的電腦上可用的字族。如下：
+\begin{lstlisting}
+C:\Windows\system32>kanji-config-updmap-sys status
+CURRENT family for ja: kozuka-pr6n
+Standby family : ipa
+Standby family : ipaex
+Standby family : kozuka
+Standby family : ms
+Standby family : yu-win10
+\end{lstlisting}
+
+
+
+然後使用以下命令設置：
+\begin{lstlisting}
+(* \CID{234} ※ Unix的OSの場合, sudoが必要 *)
+
+(* \CID{234} IPAexフォントを使う *)
+$ kanji-config-updmap-sys ipaex
+
+(* \CID{234} macOS(El Capitan以降)付属のヒラギノフォントを使う *)
+$ kanji-config-updmap-sys hiragino-elcapitan-pron
+
+(* \CID{234} 小塚フォント(Pr6N版)を使う; 舊字形 *)
+$ kanji-config-updmap-sys  kozuka-pr6n
+(*或*)
+(* \CID{234} 小塚フォント(Pr6N版)を使う; 2004JIS字形指定 *)
+$ kanji-config-updmap-sys --jis2004 kozuka-pr6n
+\end{lstlisting}
+\par {\bfseries  --jis2004} 選項：是否使用JIS2004標準字形。
+\par 關於字族的説明：
+\begin{itemize}
+\item kozuka-pr6n  \quad   小塚フォント（小塚明朝 Pr6N版)，
+伴隨AcrobatX10及更新的版本附贈，非商用
+\item ipa \qquad \qquad \quad 独立行政法人情報処理推進機構
+開發的 IPA 舊字
+\item ipaex  \quad \qquad  \quad  独立行政法人情報処理推進機構
+開發的 IPA 新字體\footnotemark[3]
+\item kozuka  \quad \qquad  小塚フォント（小塚明朝），非商用
+\item ms  \quad  \qquad \qquad Microsoft系統附贈，非商用
+\item yu-win10  \quad \quad  Microsoft日文版Windows系統附贈字體，
+需從網頁下載使用
+\footnotemark[4]，非商用
+\end{itemize}
+\footnotetext[3]{IPAex字體下載地址：https://ipafont.ipa.go.jp/node26 }
+\footnotetext[4]{游-明體下載地址： https://www.wfonts.com/download
+/data/2016/07/04/yu-mincho/yumin.ttf}
+\par 設置結果如下所示：
+\begin{lstlisting}
+C:\Windows\system32>kanji-config-updmap-sys kozuka-pr6n
+Setting up ... ptex-kozuka-pr6n.map
+... ...
+Generating output for dvipdfmx...
+Generating output for ps2pk...
+Generating output for dvips...
+Generating output for pdftex...
+... ...
+c:/texlive/2018/texmf-var/fonts/map/dvipdfmx/updmap:
+7726 2019-01-09 01:39:07 kanjix.map
+Transcript written on "c:/texlive/2018/texmf-var/web2c/updmap.log".
+updmap: Updating ls-R files.
+C:\Windows\system32>
+\end{lstlisting}
+\par 這樣就表示您的字體設置成功了。
+
+%\clearpage
+
+\section{ptex2pdf使用參數紹介}\label{ptex2pdf}
+
+{ \bfseries \par  語法 }
+\begin{lstlisting}
+[texlua] ptex2pdf[.lua] { option | basename[.tex] } ...
+\end{lstlisting}
+{ \bfseries  options:}
+\begin{itemize}
+\item \quad  -v  version  \qquad 顯示版本
+\item \quad  -h  help  \qquad 幫助
+\item \quad  -help print full help (installation, TeXworks setup)
+\item \quad  -e  use eptex class of programs  \qquad 使用ep\TeX 特性進行編譯
+\item \quad  -u  use uptex class of programs  \qquad 使用up\TeX 特性進行編譯
+\item \quad  -l  use latex based formats  \qquad 引用\LaTeX 語法格式
+\item \quad  -s  stop at dvi  \qquad 編譯結束，在dvi之前立即停止
+\item \quad  -i  retain intermediate files  \qquad 保留過程文件
+\item \quad  -ot '<opts>' extra options for  \TeX   \qquad 額外 \TeX 選項
+\item \quad  -od '<opts>' extra options for dvipdfmx   \qquad 額外 dvipdfmx 選項
+\item \quad  -output-directory '<dir>' directory for created files   \qquad 指定pdf 輸出 目錄
+\end{itemize}
+
+
+\section{ Drag＆Drop Up\TeX 2018介紹}\label{uptex-xiongben}
+
+配置緊湊（具體來說，TeX Live 方案 - 小到只收集日語解決方案），
+但它足以使用 \pLaTeX 和 up\LaTeX。 此外，它還帶有一個自動執行
+日語字體設置的 GUI，因此您可以用最少的操作完成日語字體設置。
+通過將 \TeX 環境包裝在應用程序包中，使用拖放功能將其安裝在
+任意位置，並以最少的操作完成必要的設置。
+
+\CID{722}OSX 專用。
+
+項目網站：http://www2.kumagaku.ac.jp/teacher/herogw/
+
+\clearpage
+\section{中日文字分級簡介}
+\subsection{日本文字分級}
+{\gtfamily
+代表字體： Kozuka-Mincho-Pr6；Kozuka-Gothic-Pr6；\\
+\qquad \qquad \qquad Kozuka-Mincho-Pr6N；Kozuka-Gothic-Pr6N；}
+
+\begin{table}[h]
+\caption{\fontsize{12pt}{15pt}\selectfont Adobe-Japan1 編碼覆蓋範圍} % title of Table
+\centering % used for centering table
+\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+\hline  % 在表格最上方绘制横线
+
+規格 & 慣用的な商品記号	& おおよその特徴 / 該当製品の例	 & 文字数(漢字数) \\
+
+\hline  %在第一行和第二行之间绘制横线
+AJ1-0 &	─	 & 漢字 Talk (昔の Mac OS)
+をベースに、新旧 (1978 ・ 1983) の JIS 第 1 水準・第 2 水準漢字をカバー。
+& 8,284 (6,653) \\
+\hline
+AJ1-1	& ─ &	当時制定された JIS90 に対応。
+AJ1-0 と大差なし。 & 	8,359 (6,655) \\
+\hline
+AJ1-2	& ─	 &  IBM 選定文字 (Win 機種依存文字)
+に対応。これにより当時の Win ・ Mac で一般的だった文字を共にカバー。
+& 	8,720 (7,014) \\
+\hline
+
+AJ1-3	& Std/StdN	&   AJ1-2 に記号などを追加。
+漢字の追加はなし。ヒラギノフォント・イワタ書体ライブラリー・ダイナフォ
+ント・モトヤ・モリサワ・タイプバンク (旧リョービ製品含む) ・カタオカデザ
+インワークス・ Font-Kai ・清和堂 & 9,354 (7,014) \\
+
+\hline
+AJ1-4	& Pro/ProN &
+(ヒラギノを除く)	商業印刷で必要になる主だった漢字
+(人名・学術漢字など) や大量の記号を追加。
+モトヤ・イワタ書体ライブラリー・モリサワ・タイプバンク
+(旧リョービ製品含む)  & 15,444 (9,138) \\
+\hline
+AJ1-5	& Pr5/Pr5N &
+(ヒラギノは Pro/ProN、
+ダイナフォントは Pro-5)	使用頻度の低い漢字を大量追加。
+これにより、JIS 第 3 ・第 4 水準漢字をカバー。
+ヒラギノフォント・ビープラス・モリサワ・タイプバンク
+(旧リョービ製品含む) ・ダイナフォント  & 20,317 (12,676) \\
+
+\hline
+AJ1-6	& Pr6/Pr6N	&  JIS 補助漢字 (1990)
+の残りなど、更に使用頻度の低い漢字を追加。これにより JIS 拡張漢字
+(2004) をカバー。ヒラギノフォント・イワタ書体ライブラリー・モリサワ
+& 23,058 (14,663) \\
+
+\hline
+AJ1-7	& Pr7/Pr7N	&  因改元需增加一橫一縱兩個年號合字。 & 增改未詳 \\
+
+\hline % 在表格最下方绘制横线
+\end{tabular}
+
+\end{table}
+
+\clearpage
+\subsection{簡體中文分級}
+{\gtfamily 代表字體： AdobeKaitiStd-Regular.otf ；AdobeSongStd-Light.otf；\\
+\qquad \qquad \qquad AdobeHeitiStd-Regular.otf；AdobeFangsongStd-Regular.otf}
+\begin{table}[h]
+\caption{\fontsize{12pt}{15pt}\selectfont Adobe-GB1 編碼覆蓋範圍} % title of Table
+\centering % used for centering table
+\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+\hline  % 在表格最上方绘制横线
+
+規格 & 商品記号	& 特徴	 & 文字数(漢字数) \\
+
+\hline  %在第一行和第二行之间绘制横线
+Adobe-GB1-0 &	GB0	 & 1995年6月26日發佈，
+共計7717個CID，主要爲GB2312編碼，簡體中文。
+& 7,717 (6,762) \\
+\hline
+Adobe-GB1-1	& GB1 &	1996年2月6日發佈，
+計2,180個CID，GB/T12345-90繁體字符集。
+& 	9,897 (8,941) \\
+\hline
+Adobe-GB1-2	& GB2	 &  1997年11月13日發佈，
+計12,230個CID，主要支持GBK(GB13000.1-93)編碼，
+符合Unicode 2.1規範。 & 22,127 (20,995) \\
+\hline
+
+Adobe-GB1-3	& GB3	&   1998年10月8日發佈，
+計226個CID，主要是旋轉的拉丁文字，
+用於縱向排列。 & 22,353 (20,995) \\
+
+\hline
+Adobe-GB1-4	& GB4 & 2000年11月20日發佈，
+計6,711 個CID，支持GN18030-2000編碼，
+滿足Unicode 3.0標準，ISO10646-1:2000以及 CJK-ext-A區的全部文字。
+& 29,064 (27,625) \\
+\hline
+Adobe-GB1-5	& GB5 & 主要是彜族文字，來自GB18030-2005字符集，
+計1,220個CID & 30,284（27,625） \\
+
+\hline % 在表格最下方绘制横线
+\end{tabular}
+
+\end{table}
+
+\clearpage
+\subsection{繁體中文分級}
+{\gtfamily 代表字體：AdobeMingStd-Light.otf ；AdobeFanHeitiStd-Bold.otf；}
+\begin{table}[h]
+\caption{\fontsize{12pt}{15pt}\selectfont Adobe-CNS1 編碼覆蓋範圍} % title of Table
+\centering % used for centering table
+\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+\hline  % 在表格最上方绘制横线
+
+規格 & 商品記号	& 特徴	 & 文字数(漢字数) \\
+
+\hline  %在第一行和第二行之间绘制横线
+Adobe-CNS1-0 &	-	 & 1995年6月26日發佈，共計14,099個CID，
+主要爲CNS11643-1992規範一面、二面，BIG5編碼，繁體中文。
+& 14,099 (13,098) \\
+\hline
+Adobe-CNS1-1	& - &	1998年9月發佈，計3,309個CID，HK-GCCS擴展集。
+& 	17,408 (16,382) \\
+\hline
+Adobe-CNS1-2	& - &  1998年10月12日發佈，
+計193個CID，主要主要是旋轉的拉丁文字，
+用於縱向排列。 & 17,601 (16,382) \\
+\hline
+
+Adobe-CNS1-3	& -	&   2000年6月發佈，計1,245個CID，
+包括歐文和HK-SCS-1999標準的字符。
+&  18,846 (17,558) \\
+
+\hline
+Adobe-CNS1-4	& CNS4 & 2001年8月發佈，計119個CID，
+其中116個為HK-SCS-2001標準。
+& 18,965(17,676) \\
+\hline
+Adobe-CNS1-5	& CNS5 & 2005年7月8日發佈，計123個CID，
+來自HK-SCS-2004標準。 & 19,088（17,799） \\
+\hline
+Adobe-CNS1-6	& CNS6 & 2009年9月24日發佈。
+來自HK-SCS-2008標準，計68個CID. & 19,156（17,867） \\
+\hline % 在表格最下方绘制横线
+\end{tabular}
+
+\end{table}
+
+
+\end{appendix}
+
+\end{document}
