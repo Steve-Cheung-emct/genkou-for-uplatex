@@ -41,18 +41,47 @@
 \topmargin=-28mm\relax
 \setlength{\@thosei}{0mm}
 \setlength{\@yhosei}{-6.5mm}
-% 橫罫線定義
+% 罫線定義
 \def\@keisen{\vrule width .1pt depth \ttextwidth\hskip 12.05mm}
-\def\@keisenk{\vrule width texthight depth .1 pt \vskip 17.05mm}
-\def\masu{
-\begin{tabular}{l}
- \@keisen\@keisen\@keisen\@keisen\@keisen\@keisen\@keisen
- \@keisen\@keisen\@keisen\@keisen\@keisen\@keisen\\
+\def\@keisenl{\vrule width 1pt depth \ttextwidth\hskip 12.05mm}
+\def\@keisenr{\vrule width 1pt depth \ttextwidth\hskip 12.05mm}
+\def\@keisenh{\rule[-5mm]{146mm}{1pt} }  
+\def\@keisenf{\rule[5mm]{146mm}{1pt} } 
+\def\masu{ %
+\begin{tabular}{|l|}
+ \noalign{\hrule depth 1pt}% 1\arrayrulewidth}
+ \@keisenl\@keisen\@keisen\@keisen\@keisen\@keisen\@keisen
+ \@keisen\@keisen\@keisen\@keisen\@keisen\@keisenr\\
+ \noalign{\hrule depth 1pt}% 1\arrayrulewidth}
  \if@genkouid {\small\the\@signature}\fi
  \end{tabular}
  }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \DeclareSymbolFont{mincho}{JY2}{mc}{m}{n}
+  \DeclareSymbolFontAlphabet{\mathmc}{mincho}
+  \SetSymbolFont{mincho}{bold}{JY2}{gt}{m}{n}
+  \DeclareMathAlphabet{\mathgt}{JY2}{gt}{m}{n}
+  \reDeclareMathAlphabet{\mathrm}{\@mathrm}{\@mathmc}
+  \reDeclareMathAlphabet{\mathbf}{\@mathbf}{\@mathgt}
+  \jfam\symmincho
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOldFontCommand{\mc}{\normalfont\mcfamily}{\mathmc}
+\DeclareOldFontCommand{\gt}{\normalfont\gtfamily}{\mathgt}
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\DeclareRobustCommand*{\cal}{\@fontswitch\relax\mathcal}
+\DeclareRobustCommand*{\mit}{\@fontswitch\relax\mathnormal}
+
+
 %\DeclareFontShape{JT1}{mc}{m}{n}{<-> gtmin10}{}
 \DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+
+
 \endinput
 %% End of file `binsen.clo'.
