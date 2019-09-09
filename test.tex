@@ -4,33 +4,317 @@
 % ご提供いただきました。
 %
 \documentclass[森,便箋]{genkou}
-\usepackage{pxbase}             % \UIを使用する，可以使用Unicode万国码插入生僻汉字
+\usepackage{pxbase} 
 \usepackage[uplatex]{otf}
 
+%%%% PDF 作者信息及超鏈接設定
+\usepackage[dvipdfmx, 
+    pdfdirection=R2L, % 開く方向%從右往左翻頁
+    colorlinks=true,   %設置超鏈接的顔色
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=cyan,
+    bookmarks=true, % PDFにしおりをつける
+    bookmarksnumbered=true, % しおりに節番号などをつける
+  ]{hyperref}
+\hypersetup{ %
+    pdftitle= {次韻王羲之書千字} , % PDFのタイトル
+    pdfauthor= {南朝 梁 周興嗣} , % PDFの作成者
+    pdfkeywords = { },  %関鍵詞
+    pdfsubject = { },    % 主題
+    pdfcreator  = {up\LaTeX\ with package  hyperref },    %工具
+    pdfproducer = {dvipdfmx(20180506)},   %製作軟件
+}
+% PDFにしたときのしおりの文字化けを防ぐ  %使書簽支持CJK字體 内碼
+\usepackage{pxjahyper}
+
 \textwidth=60 zw
+%\setlength{\hoffset}{5 mm}
+%\setlength{\voffset}{-3 mm}
+%\setlength{\oddsidemargin}{ -5 mm}
+%\setlength{\evensidemargin}{-5 mm}
+
+
+
+\maintitle{次韻王羲之書千字}
+\subtitle{千字文}
+\author{南朝\CID{119}梁\CID{119}周興嗣}
+\authorfn{周興嗣}
 
 \begin{document}
 
-\par \utmin
-又問黛玉：「可也有玉沒有？」
-衆人不解其語，黛玉便忖度著
-因他有玉，故問我有也無，因
-答道：「我沒有那個。想來那
-玉是一件罕物，豈能人人有的
-。」寳玉聽了，登時發作起癡
-狂病來，摘下那玉，就狠命\CID{14584}
-去，罵道：「什麼罕物，連人
-之高低不擇，還\CID{13880}通靈不通靈
-\CID{17350}！我也不要這勞什子了！」
-嚇的衆人一擁爭去拾玉。賈母
-急的\CID{19414}了寳玉道：「\CID{14472}障！\CID{14316}
-生氣，要打罵人容易，何苦\CID{14584}
-那命根子！」寳玉滿面\CID{13395}痕泣
-道：「家裡姐姐妹妹都沒有，
-單我有，我\CID{13880}沒趣，如今來了
-這們一個神仙似的妹妹也沒有
-，可知這不是個好東西。」賈
-母忙哄他道：「\CID{14316}這妹妹原有
-這個來的……
+\maketitle
+
+\tableofcontents 
+
+
+\chapter{正文}
+
+\ukai \LARGE\par\noindent
+\leftskip=5mm
+天地玄黃\hskip17pt宇宙洪荒
+\hskip17pt日月盈昃\hskip17pt辰宿列張
+\hskip17pt寒來暑往\hskip17pt秋收冬藏
+\hskip17pt閏餘成歲\hskip17pt律召調陽
+\hskip17pt雲騰致雨\hskip17pt露結爲霜
+\hskip17pt金生麗水\hskip17pt玉出崑岡
+\hskip17pt劍號巨闕\hskip17pt珠稱夜光
+\hskip17pt果珍李柰\hskip17pt菜重芥薑
+\hskip17pt海鹹河淡\hskip17pt鱗潛羽翔
+\hskip17pt龍師火帝\hskip17pt鳥官人皇
+\hskip17pt始制文字\hskip17pt乃服衣裳
+\hskip17pt推位讓國\hskip17pt有虞陶唐
+\hskip17pt弔民伐罪\hskip17pt周發殷湯
+\hskip17pt坐朝問道\hskip17pt垂拱平章
+\hskip17pt愛育黎首\hskip17pt臣伏戎羌
+\hskip17pt遐邇壹體\hskip17pt率賓歸王
+\hskip17pt鳴鳳在樹\hskip17pt白駒食場
+\hskip17pt化被草木\hskip17pt賴及萬方
+\hskip17pt蓋此身髮\hskip17pt四大五常
+\hskip17pt恭惟鞠養\hskip17pt豈敢毀傷
+\hskip17pt女慕貞絜\hskip17pt男效才良
+\hskip17pt知過必改\hskip17pt得能莫忘
+\hskip17pt罔談彼短\hskip17pt靡恃己長
+\hskip17pt信使可覆\hskip17pt器欲難量
+\hskip17pt墨悲絲淬\hskip17pt詩讃羔羊
+\hskip17pt景行維賢\hskip17pt克念作聖
+\hskip17pt德建名立\hskip17pt形端表正
+\hskip17pt空谷傳聲\hskip17pt虛堂習聽
+\hskip17pt禍因惡積\hskip17pt福緣善慶
+\hskip17pt尺璧非寶\hskip17pt寸陰是競
+\hskip17pt資父事君\hskip17pt曰嚴與敬
+\hskip17pt孝當竭力\hskip17pt忠則盡命
+\hskip17pt臨深履薄\hskip17pt夙興溫凊
+\hskip17pt似蘭斯馨\hskip17pt如松之盛
+\hskip17pt川流不息\hskip17pt淵澄取映
+\hskip17pt容止若思\hskip17pt言辭安定
+\hskip17pt篤初誠美\hskip17pt慎終宜令
+\hskip17pt榮業所基\hskip17pt籍甚無竟
+\hskip17pt學優登仕\hskip17pt攝職從政
+\hskip17pt存以甘棠\hskip17pt去而益詠
+\hskip17pt樂殊貴賤\hskip17pt禮別尊卑
+\hskip17pt上咊下睦\hskip17pt夫唱婦隨
+\hskip17pt外受傅訓\hskip17pt入奉母儀
+\hskip17pt諸姑伯叔\hskip17pt猶子比兒
+\hskip17pt孔懷兄弟\hskip17pt同气連枝
+\hskip17pt交友投分\hskip17pt切磨箴規
+\hskip17pt仁慈隱惻\hskip17pt造次弗離
+\hskip17pt節義廉退\hskip17pt顛沛匪虧
+\hskip17pt性靜情逸\hskip17pt心動神疲
+\hskip17pt守眞志滿\hskip17pt逐物意移
+\hskip17pt堅持雅操\hskip17pt好爵自縻
+\hskip17pt都邑華夏\hskip17pt東西二京
+\hskip17pt背邙面洛\hskip17pt浮渭據涇
+\hskip17pt宮殿盤鬱\hskip17pt樓觀飛驚
+\hskip17pt圖寫禽獸\hskip17pt畫彩仙靈
+\hskip17pt丙舍傍啓\hskip17pt甲帳對楹%啟 UTF555F
+\hskip17pt肆筵設席\hskip17pt鼓瑟吹笙
+\hskip17pt升階納陛\hskip17pt弁轉疑星
+\hskip17pt右通廣內\hskip17pt左達承明
+\hskip17pt既集墳典\hskip17pt亦聚羣英
+\hskip17pt杜稾鍾隸\hskip17pt漆書壁經
+\hskip17pt府羅將相\hskip17pt路俠槐卿
+\hskip17pt戶封八縣\hskip17pt家給千兵
+\hskip17pt高冠陪輦\hskip17pt驅轂振纓
+\hskip17pt世祿侈富\hskip17pt車駕肥輕
+\hskip17pt策功茂實\hskip17pt勒碑刻銘
+\hskip17pt磻溪伊尹\hskip17pt佐時阿衡
+\hskip17pt奄宅曲阜\hskip17pt微旦孰營
+\hskip17pt桓公匡合\hskip17pt濟弱扶傾
+\hskip17pt綺迴漢惠\hskip17pt說感武丁
+\hskip17pt俊乂密勿\hskip17pt多士寔寧
+\hskip17pt晉楚更霸\hskip17pt趙魏困橫
+\hskip17pt假途滅虢\hskip17pt踐土會盟
+\hskip17pt何遵約法\hskip17pt韓弊煩刑
+\hskip17pt起翦頗牧\hskip17pt用軍最精
+\hskip17pt宣威沙漠\hskip17pt馳譽丹青
+\hskip17pt九州禹跡\hskip17pt百郡秦并
+\hskip17pt嶽宗恆岱\hskip17pt禪主雲亭
+\hskip17pt雁門紫塞\hskip17pt雞田赤城
+\hskip17pt昆池碣石\hskip17pt鉅野洞庭
+\hskip17pt曠遠緜邈\hskip17pt巖岫杳冥
+\hskip17pt治本於農\hskip17pt務茲稼穡
+\hskip17pt俶載南畝\hskip17pt我藝黍稷
+\hskip17pt稅熟貢新\hskip17pt勸賞黜陟
+\hskip17pt孟軻敦素\hskip17pt史魚秉直
+\hskip17pt庶幾中庸\hskip17pt勞謙謹敕
+\hskip17pt聆音察理\hskip17pt鑑皃辧色
+\hskip17pt貽厥嘉猷\hskip17pt勉其祗植
+\hskip17pt省躬譏誡\hskip17pt寵增抗極
+\hskip17pt殆辱近恥\hskip17pt林皋幸即
+\hskip17pt兩疏見機\hskip17pt解組誰逼
+\hskip17pt索居閒處\hskip17pt沈默寂寥
+\hskip17pt求古尋論\hskip17pt散慮逍遙
+\hskip17pt欣奏累遣\hskip17pt慼謝歡招
+\hskip17pt渠荷的歷\hskip17pt園莽抽條
+\hskip17pt枇杷晚翠\hskip17pt梧桐早凋
+\hskip17pt陳根委翳\hskip17pt落葉飄颻
+\hskip17pt游鯤獨運\hskip17pt夌摩絳霄
+\hskip17pt耽讀翫市\hskip17pt寓目囊箱
+\hskip17pt易輶攸畏\hskip17pt屬耳垣牆
+\hskip17pt具膳喰飯\hskip17pt適口充腸
+\hskip17pt飽飫亯宰\hskip17pt飢厭糟糠
+\hskip17pt親戚故舊\hskip17pt老少異糧
+\hskip17pt妾御績紡\hskip17pt侍巾帷房
+\hskip17pt紈扇圓潔\hskip17pt銀燭煒煌
+\hskip17pt晝瞑夕寐\hskip17pt籃筍象牀
+\hskip17pt弦歌酒讌\hskip17pt接杯舉觴
+\hskip17pt矯手頓足\hskip17pt悅豫且康
+\hskip17pt嫡後嗣續\hskip17pt祭祀烝嘗
+\hskip17pt稽顙再拜\hskip17pt悚懼恐惶
+\hskip17pt箋牒簡要\hskip17pt顧答審詳
+\hskip17pt骸垢想浴\hskip17pt執熱願涼
+\hskip17pt驢騾犢特\hskip17pt駭躍超驤
+\hskip17pt誅斬賊盜\hskip17pt捕獲叛亡
+\hskip17pt布射遼丸\hskip17pt嵇琴阮嘯
+\hskip17pt恬筆倫紙\hskip17pt鈞巧任釣
+\hskip17pt釋紛利俗\hskip17pt並皆佳妙
+\hskip17pt毛施淑姿\hskip17pt工顰妍笑
+\hskip17pt秊矢每催\hskip17pt曦暉朗耀
+\hskip17pt琁璣懸斡\hskip17pt晦魄環照
+\hskip17pt指薪脩祜\hskip17pt永綏吉劭
+\hskip17pt矩步引領\hskip17pt俯仰廊廟
+\hskip17pt束帶矜莊\hskip17pt徘徊瞻眺
+\hskip17pt孤陋寡聞\hskip17pt愚蒙等誚
+\hskip17pt謂語助者\hskip17pt焉哉乎也
+\hskip17pt　　　　\hskip17pt　　　　
+\hskip17pt　　　　\hskip17pt　　　　
+\hskip17pt　　　　\hskip17pt
+
+
+\chapter{正文}
+
+\ukai \LARGE\par\noindent
+\leftskip=5mm
+天地玄黃\hskip17pt宇宙洪荒
+\hskip17pt日月盈昃\hskip17pt辰宿列張
+\hskip17pt寒來暑往\hskip17pt秋收冬藏
+\hskip17pt閏餘成歲\hskip17pt律召調陽
+\hskip17pt雲騰致雨\hskip17pt露結爲霜
+\hskip17pt金生麗水\hskip17pt玉出崑岡
+\hskip17pt劍號巨闕\hskip17pt珠稱夜光
+\hskip17pt果珍李柰\hskip17pt菜重芥薑
+\hskip17pt海鹹河淡\hskip17pt鱗潛羽翔
+\hskip17pt龍師火帝\hskip17pt鳥官人皇
+\hskip17pt始制文字\hskip17pt乃服衣裳
+\hskip17pt推位讓國\hskip17pt有虞陶唐
+\hskip17pt弔民伐罪\hskip17pt周發殷湯
+\hskip17pt坐朝問道\hskip17pt垂拱平章
+\hskip17pt愛育黎首\hskip17pt臣伏戎羌
+\hskip17pt遐邇壹體\hskip17pt率賓歸王
+\hskip17pt鳴鳳在樹\hskip17pt白駒食場
+\hskip17pt化被草木\hskip17pt賴及萬方
+\hskip17pt蓋此身髮\hskip17pt四大五常
+\hskip17pt恭惟鞠養\hskip17pt豈敢毀傷
+\hskip17pt女慕貞絜\hskip17pt男效才良
+\hskip17pt知過必改\hskip17pt得能莫忘
+\hskip17pt罔談彼短\hskip17pt靡恃己長
+\hskip17pt信使可覆\hskip17pt器欲難量
+\hskip17pt墨悲絲淬\hskip17pt詩讃羔羊
+\hskip17pt景行維賢\hskip17pt克念作聖
+\hskip17pt德建名立\hskip17pt形端表正
+\hskip17pt空谷傳聲\hskip17pt虛堂習聽
+\hskip17pt禍因惡積\hskip17pt福緣善慶
+\hskip17pt尺璧非寶\hskip17pt寸陰是競
+\hskip17pt資父事君\hskip17pt曰嚴與敬
+\hskip17pt孝當竭力\hskip17pt忠則盡命
+\hskip17pt臨深履薄\hskip17pt夙興溫凊
+\hskip17pt似蘭斯馨\hskip17pt如松之盛
+\hskip17pt川流不息\hskip17pt淵澄取映
+\hskip17pt容止若思\hskip17pt言辭安定
+\hskip17pt篤初誠美\hskip17pt慎終宜令
+\hskip17pt榮業所基\hskip17pt籍甚無竟
+\hskip17pt學優登仕\hskip17pt攝職從政
+\hskip17pt存以甘棠\hskip17pt去而益詠
+\hskip17pt樂殊貴賤\hskip17pt禮別尊卑
+\hskip17pt上咊下睦\hskip17pt夫唱婦隨
+\hskip17pt外受傅訓\hskip17pt入奉母儀
+\hskip17pt諸姑伯叔\hskip17pt猶子比兒
+\hskip17pt孔懷兄弟\hskip17pt同气連枝
+\hskip17pt交友投分\hskip17pt切磨箴規
+\hskip17pt仁慈隱惻\hskip17pt造次弗離
+\hskip17pt節義廉退\hskip17pt顛沛匪虧
+\hskip17pt性靜情逸\hskip17pt心動神疲
+\hskip17pt守眞志滿\hskip17pt逐物意移
+\hskip17pt堅持雅操\hskip17pt好爵自縻
+\hskip17pt都邑華夏\hskip17pt東西二京
+\hskip17pt背邙面洛\hskip17pt浮渭據涇
+\hskip17pt宮殿盤鬱\hskip17pt樓觀飛驚
+\hskip17pt圖寫禽獸\hskip17pt畫彩仙靈
+\hskip17pt丙舍傍啓\hskip17pt甲帳對楹%啟 UTF555F
+\hskip17pt肆筵設席\hskip17pt鼓瑟吹笙
+\hskip17pt升階納陛\hskip17pt弁轉疑星
+\hskip17pt右通廣內\hskip17pt左達承明
+\hskip17pt既集墳典\hskip17pt亦聚羣英
+\hskip17pt杜稾鍾隸\hskip17pt漆書壁經
+\hskip17pt府羅將相\hskip17pt路俠槐卿
+\hskip17pt戶封八縣\hskip17pt家給千兵
+\hskip17pt高冠陪輦\hskip17pt驅轂振纓
+\hskip17pt世祿侈富\hskip17pt車駕肥輕
+\hskip17pt策功茂實\hskip17pt勒碑刻銘
+\hskip17pt磻溪伊尹\hskip17pt佐時阿衡
+\hskip17pt奄宅曲阜\hskip17pt微旦孰營
+\hskip17pt桓公匡合\hskip17pt濟弱扶傾
+\hskip17pt綺迴漢惠\hskip17pt說感武丁
+\hskip17pt俊乂密勿\hskip17pt多士寔寧
+\hskip17pt晉楚更霸\hskip17pt趙魏困橫
+\hskip17pt假途滅虢\hskip17pt踐土會盟
+\hskip17pt何遵約法\hskip17pt韓弊煩刑
+\hskip17pt起翦頗牧\hskip17pt用軍最精
+\hskip17pt宣威沙漠\hskip17pt馳譽丹青
+\hskip17pt九州禹跡\hskip17pt百郡秦并
+\hskip17pt嶽宗恆岱\hskip17pt禪主雲亭
+\hskip17pt雁門紫塞\hskip17pt雞田赤城
+\hskip17pt昆池碣石\hskip17pt鉅野洞庭
+\hskip17pt曠遠緜邈\hskip17pt巖岫杳冥
+\hskip17pt治本於農\hskip17pt務茲稼穡
+\hskip17pt俶載南畝\hskip17pt我藝黍稷
+\hskip17pt稅熟貢新\hskip17pt勸賞黜陟
+\hskip17pt孟軻敦素\hskip17pt史魚秉直
+\hskip17pt庶幾中庸\hskip17pt勞謙謹敕
+\hskip17pt聆音察理\hskip17pt鑑皃辧色
+\hskip17pt貽厥嘉猷\hskip17pt勉其祗植
+\hskip17pt省躬譏誡\hskip17pt寵增抗極
+\hskip17pt殆辱近恥\hskip17pt林皋幸即
+\hskip17pt兩疏見機\hskip17pt解組誰逼
+\hskip17pt索居閒處\hskip17pt沈默寂寥
+\hskip17pt求古尋論\hskip17pt散慮逍遙
+\hskip17pt欣奏累遣\hskip17pt慼謝歡招
+\hskip17pt渠荷的歷\hskip17pt園莽抽條
+\hskip17pt枇杷晚翠\hskip17pt梧桐早凋
+\hskip17pt陳根委翳\hskip17pt落葉飄颻
+\hskip17pt游鯤獨運\hskip17pt夌摩絳霄
+\hskip17pt耽讀翫市\hskip17pt寓目囊箱
+\hskip17pt易輶攸畏\hskip17pt屬耳垣牆
+\hskip17pt具膳喰飯\hskip17pt適口充腸
+\hskip17pt飽飫亯宰\hskip17pt飢厭糟糠
+\hskip17pt親戚故舊\hskip17pt老少異糧
+\hskip17pt妾御績紡\hskip17pt侍巾帷房
+\hskip17pt紈扇圓潔\hskip17pt銀燭煒煌
+\hskip17pt晝瞑夕寐\hskip17pt籃筍象牀
+\hskip17pt弦歌酒讌\hskip17pt接杯舉觴
+\hskip17pt矯手頓足\hskip17pt悅豫且康
+\hskip17pt嫡後嗣續\hskip17pt祭祀烝嘗
+\hskip17pt稽顙再拜\hskip17pt悚懼恐惶
+\hskip17pt箋牒簡要\hskip17pt顧答審詳
+\hskip17pt骸垢想浴\hskip17pt執熱願涼
+\hskip17pt驢騾犢特\hskip17pt駭躍超驤
+\hskip17pt誅斬賊盜\hskip17pt捕獲叛亡
+\hskip17pt布射遼丸\hskip17pt嵇琴阮嘯
+\hskip17pt恬筆倫紙\hskip17pt鈞巧任釣
+\hskip17pt釋紛利俗\hskip17pt並皆佳妙
+\hskip17pt毛施淑姿\hskip17pt工顰妍笑
+\hskip17pt秊矢每催\hskip17pt曦暉朗耀
+\hskip17pt琁璣懸斡\hskip17pt晦魄環照
+\hskip17pt指薪脩祜\hskip17pt永綏吉劭
+\hskip17pt矩步引領\hskip17pt俯仰廊廟
+\hskip17pt束帶矜莊\hskip17pt徘徊瞻眺
+\hskip17pt孤陋寡聞\hskip17pt愚蒙等誚
+\hskip17pt謂語助者\hskip17pt焉哉乎也
+\hskip17pt　　　　\hskip17pt　　　　
+\hskip17pt　　　　\hskip17pt　　　　
+\hskip17pt　　　　\hskip17pt
+
 
 \end{document}
