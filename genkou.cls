@@ -44,6 +44,7 @@
 \DeclareOption{松}{\def\@masuiro{PineGreen}}%
 \DeclareOption{菫}{\def\@masuiro{Violet}}%
 \DeclareOption{無}{\def\@masuiro{White}}%
+\DeclareOption{紅}{\def\@masuiro{Red}}%
 \DeclareOption{A4}{\aivtrue}%
 \DeclareOption{a4}{\aivtrue}%
 \DeclareOption{B5}{\bvtrue}%
@@ -52,15 +53,9 @@
 \DeclareOption{b4}{\bivtrue}%
 \ExecuteOptions{masume,twoside,final,縦,松,A4}    %執行選項
 \ProcessOptions\relax
-\if@便箋{%
-  \mag 913             % formerly 900  縮放因子，將版面整體縮放 900 ‰
-%  \setlength\paperwidth{1.09529\paperwidth}%
-%  \setlength\paperheight{1.09529\paperheight}%
-%  \def\n@baseline{15}%
-}\fi
 \input{\縦横.clo}
 \RequirePackage[usenames]{color}
-\RequirePackage[expert,uplatex,deluxe]{otf} %190329
+\RequirePackage[expert,uplatex,deluxe,jis2004]{otf} %190329
 \RequirePackage{plext}
 \setbox\@TL=\hbox{{\color{\@masuiro}\masu}}%
 \setbox\@Tl=\hbox{}\setbox\@TC=\hbox{}\setbox\@TR=\hbox{}
@@ -90,16 +85,27 @@
 %
 \def\ps@headnombre{\let\@mkboth\@gobbletwo
   \let\ps@jpl@in\ps@headnombre
-  \def\@evenhead{\hfil\thepage}%
-  \def\@oddhead{%
+  \def\@evenhead{%
   \if@横\hfill\smash{\raisebox{7mm}{%
-    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}
+    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}%
     ~\textsl{\thepage}\hfil\vskip2mm
     \textcolor{\@masuiro}{\hrule}}}}\else%
    \if@ribon\hspace*{14mm}%
    \else\hspace*{4.5mm}\fi
-    \smash{\raisebox{5mm}{%
-    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}
+    \smash{\raisebox{7mm}{%
+    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}%
+    ~\textsl{\thepage}\hfil\vskip2mm
+    \textcolor{\@masuiro}{\hrule}}}}%
+    \hfil\fi}%
+  \def\@oddhead{%
+  \if@横\hfill\smash{\raisebox{7mm}{%
+    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}%
+    ~\textsl{\thepage}\hfil\vskip2mm
+    \textcolor{\@masuiro}{\hrule}}}}\else%
+   \if@ribon\hspace*{14mm}%
+   \else\hspace*{4.5mm}\fi
+    \smash{\raisebox{7mm}{%
+    \vbox{\hsize=25mm\hfil\textcolor{\@masuiro}{\textsl{No.}}%
     ~\textsl{\thepage}\hfil\vskip2mm
     \textcolor{\@masuiro}{\hrule}}}}%
     \hfil\fi}%
@@ -129,7 +135,7 @@
          \smash{%
             \dimen@.91\textheight \advance\dimen@\footskip
             \vbox to\dimen@{%
-               \hbox{\tate \reset@font{\large\mc \@maintitle（\@authorfn）}}%
+               \hbox{\tate \reset@font{\large\mc \@maintitle（{\@authorfn}）}}%
                \vfill
                \hbox{\tate \reset@font{\large\mc \kansuji\c@page  （第%
                \hskip.5zw{\kansuji\c@ppage}\hskip.5zw頁）%
@@ -168,10 +174,10 @@
          \smash{%
             \dimen@.91\textheight \advance\dimen@\footskip
             \vbox to\dimen@{%
-%               \hbox{\tate \reset@font{\large\mc \@maintitle（\@authorfn）}}%
+%               \hbox{\tate \reset@font{\large\mc \@maintitle（{\@authorfn}）}}%
                \vfill
-               \hbox{\tate \reset@font{\large\mc \kansuji\c@page  （第%
-               \hskip.5zw{\kansuji\c@ppage}\hskip.5zw頁）%
+               \hbox{\tate \reset@font{\large\mc % \kansuji\c@page  %
+               （第 \hskip.5zw{\kansuji\c@ppage}\hskip.5zw頁）%
                \vspace{25mm}}}%
                }}%
          \hskip3.3mm}%
@@ -193,8 +199,8 @@
 %           \hbox{\tate \reset@font{\large\mc \rightmark}} 
             % 右邊頁眉設置爲章標題
             \vfil
-                     \hbox{\tate \reset@font{\large\mc \kansuji\c@page（第%
-                           \hskip.5zw{\kansuji\c@ppage}\hskip.5zw頁）%
+               \hbox{\tate \reset@font{\large\mc % \kansuji\c@page  %
+               （第 \hskip.5zw{\kansuji\c@ppage}\hskip.5zw頁）%
                            \vspace{25mm}}}}}}%
                            \hskip-5mm\stepcounter{ppage}}%
    \let\@oddhead\@empty
@@ -230,7 +236,7 @@
     \newpage\null\vfil
     \vskip .6\baselineskip%
     \begin{flushleft}%
-      {\Huge \hspace{2zw}\@maintitle \par}%
+      {\Huge\mcfamily\bfseries \hspace{2zw}\@maintitle \par}%
       \vskip 1.1\baselineskip%
       {\Large%
       \begin{tabular}[t]{c}%
@@ -353,7 +359,7 @@
   \@makechapterhead{#2}\@afterheading}
 \def\@makechapterhead#1{\hbox{}%
 %    \vskip \baselineskip
-  {  \hbox{\LARGE\textcolor{purple}{\mc \@maintitle 巻之} }
+  {\hskip0.25\Cwd\hbox{\LARGE\textcolor{purple}{\mc \@maintitle 巻之} }
     \vskip 1\baselineskip
      \par \noindent \LARGE\mcfamily\bfseries
    \raggedright 
@@ -369,18 +375,20 @@
    \else
      #1\relax
    \fi}\nobreak \vskip 1\baselineskip%
+   \pagestyle{myheading}%
    \setcounter{ppage}{1}}
 \def\@schapter#1{%
   \@makeschapterhead{#1}\@afterheading
 }
 \def\@makeschapterhead#1{\hbox{}%
-    \vskip 1\baselineskip
+    \vskip \baselineskip
   {\parindent\z@
    \raggedright
    \normalfont\LARGE\bfseries
    \leavevmode
    \setlength\@tempdima{\linewidth}%
-   \vtop{\hsize\@tempdima#1}} \vskip 1\baselineskip}
+   \vtop{\hsize\@tempdima#1}} \vskip 1\baselineskip%
+      \pagestyle{my}}
 
 
 \newcommand{\section}{\@startsection{section}{1}{\z@}%
@@ -447,7 +455,7 @@
 \newcommand{\tableofcontents}{%
   \chapter*{\contentsname
     \@mkboth{\contentsname}{\contentsname}%
-  }\@starttoc{toc} }
+  } \@starttoc{toc} }
 \newcommand*{\l@part}[2]{%
   \ifnum \c@tocdepth >-2\relax
     \addpenalty{-\@highpenalty}%
@@ -467,7 +475,6 @@
 \newcommand*{\l@chapter}[2]{%
   \ifnum \c@tocdepth >\m@ne
     \addpenalty{-\@highpenalty}%
-%    \addvspace{1.0em \@plus\p@}%
 %    \addvspace{1\Cvs \@plus\p@}%
     \begingroup
       \parindent\z@ \rightskip\@pnumwidth \parfillskip-\rightskip
@@ -526,7 +533,7 @@
  \input kinsoku.tex
 \fi
 
-\def\dash{{\leavevmode\kern1mm\raise0.1zh\hbox{------}\kern1mm}}
+\def\dash{{\leavevmode\kern1mm\raise0zh\hbox{\rule{1.8zw}{0.5pt}}\kern1mm}}
 
 % 定義的 目錄頁碼格式（非常重要！！）
 \AtBeginDocument{%

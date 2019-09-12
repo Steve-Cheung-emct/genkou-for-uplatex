@@ -22,6 +22,7 @@
   \@setfontsize\footnotesize\@viiipt{9.5}}%
 \newcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
 \newcommand{\tiny}{\@setfontsize\tiny\@vpt\@vipt}
+\newcommand{\large}{\@setfontsize\large\@xiipt{34.85}}
 \newcommand{\Large}{\@setfontsize\Large\@xivpt{34.85}}
 \newcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{41.57}}
 %%****************************
@@ -52,16 +53,19 @@
 \paperwidth=257mm
  \textwidth=192mm
 \textheight=315.3mm
-\oddsidemargin=-35mm
+\oddsidemargin=-39mm
 \evensidemargin\oddsidemargin
-\topmargin=-18mm
+\topmargin=-24mm
 \setlength{\@masutaka}{7.8mm}
 \setlength{\@masuhaba}{13mm}
 \setlength{\@gyokan}{.5mm}
 \setlength{\@keihaba}{315mm}
-\setlength{\@thosei}{9mm}
-\setlength{\@yhosei}{3.5mm}
+\setlength{\@thosei}{3 mm}
+\setlength{\@yhosei}{-1.5mm}
 \setlength{\KANJISKIP}{11.1pt}
+
+\AtBeginDocument{\pagestyle{headnombre}\ujlreq\LARGE}
+
 \def\masutaka{\vrule width 0mm height \@masutaka}
 \def\gyo{\masutaka\\ \hline}
 \def\retu{%
@@ -86,7 +90,32 @@
  \if@genkouid \\{\small\the\@signature}\fi
  \end{tabular}}
 
-\DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \DeclareSymbolFont{mincho}{JY2}{mc}{m}{n}
+  \DeclareSymbolFontAlphabet{\mathmc}{mincho}
+  \SetSymbolFont{mincho}{bold}{JY2}{gt}{m}{n}
+  \DeclareMathAlphabet{\mathgt}{JY2}{gt}{m}{n}
+  \reDeclareMathAlphabet{\mathrm}{\@mathrm}{\@mathmc}
+  \reDeclareMathAlphabet{\mathbf}{\@mathbf}{\@mathgt}
+  \jfam\symmincho
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOldFontCommand{\mc}{\normalfont\mcfamily}{\mathmc}
+\DeclareOldFontCommand{\gt}{\normalfont\gtfamily}{\mathgt}
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\DeclareRobustCommand*{\cal}{\@fontswitch\relax\mathcal}
+\DeclareRobustCommand*{\mit}{\@fontswitch\relax\mathnormal}
+
+
 %\DeclareFontShape{JT1}{mc}{m}{n}{<-> gtmin10}{}
+\DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+
+
+
 \endinput
 %% End of file `ribon.clo'.

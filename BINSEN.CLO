@@ -16,45 +16,48 @@
 \setlength\Cvs{\baselineskip}
 \setlength\Chs{\wd0}
 \newcommand{\small}{%
-  \@setfontsize\small\@ixpt{11}}%
+  \@setfontsize\small\@ixpt{10}}%
 \newcommand{\footnotesize}{%
   \@setfontsize\footnotesize\@viiipt{9.5}}%
 \newcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
 \newcommand{\tiny}{\@setfontsize\tiny\@vpt\@vipt}
-\newcommand{\Large}{\@setfontsize\Large\@xivpt{34.4}}
-\newcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{41.57}}
+\newcommand{\large}{\@setfontsize\large\@xiipt{17}}
+\newcommand{\Large}{\@setfontsize\Large\@xivpt{34}}
+%\newcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{34}}
+\newcommand{\LARGE}{\@setfontsize\LARGE{18}{34}}
+\newcommand{\huge}{\@setfontsize\huge\@xxpt{34}}
+\newcommand{\Huge}{\@setfontsize\Huge\@xxvpt{34}}
 %%****************************
 \newlength{\@thosei}
 \newlength{\@yhosei}
 \newlength{\KANJISKIP}
 \setlength{\KANJISKIP}{\kanjiskip}
-\AtBeginDocument{\kanjiskip=.3zw plus .2zw\Large}
+\AtBeginDocument{\leftskip=5mm\kanjiskip=.1zw plus .05zw\ujlreq\LARGE}
 \paperheight=257mm
 \paperwidth=182mm
 \newdimen\ttextwidth
 \ttextwidth=205mm
-%\textwidth=205mm
 %
 \textheight=145mm
 \oddsidemargin=-35.5mm
 \evensidemargin\oddsidemargin
 \topmargin=-28mm\relax
-\setlength{\@thosei}{0mm}
-\setlength{\@yhosei}{-6.5mm}
+\setlength{\@thosei}{-3mm}
+\setlength{\@yhosei}{-7.5mm}
 % 罫線定義
-\def\@keisen{\vrule width .1pt depth \ttextwidth\hskip 12.05mm}
-\def\@keisenl{\vrule width 1pt depth \ttextwidth\hskip 12.05mm}
-\def\@keisenr{\vrule width 1pt depth \ttextwidth\hskip 12.05mm}
-\def\@keisenh{\rule[-5mm]{146mm}{1pt} }  
-\def\@keisenf{\rule[5mm]{146mm}{1pt} } 
+\setlength{\fboxrule}{2pt}
+\def\@keisen{\vrule width  1pt depth \ttextwidth\hskip 11.7mm}
+\def\@keisenl{\vrule width 1pt depth \ttextwidth\hskip 11.7mm}
+\def\@keisenr{\vrule width 1pt depth \ttextwidth\hskip 11.7mm}
 \def\masu{ %
+{\fbox{%
 \begin{tabular}{|l|}
- \noalign{\hrule depth 1pt}% 1\arrayrulewidth}
+ \noalign{\hrule depth 1pt}
  \@keisenl\@keisen\@keisen\@keisen\@keisen\@keisen\@keisen
  \@keisen\@keisen\@keisen\@keisen\@keisen\@keisenr\\
- \noalign{\hrule depth 1pt}% 1\arrayrulewidth}
+ \noalign{\hrule depth 1pt}
  \if@genkouid {\small\the\@signature}\fi
- \end{tabular}
+ \end{tabular}}}%
  }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,6 +84,7 @@
 
 %\DeclareFontShape{JT1}{mc}{m}{n}{<-> gtmin10}{}
 \DeclareFontShape{JT2}{mc}{m}{n}{<-> gtmin10}{}
+
 
 
 \endinput

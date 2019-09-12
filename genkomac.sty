@@ -1,104 +1,21 @@
 %%---------- genkomac.sty ----------------------------------
 \ProvidesPackage{genkomac}[1999/01/17]
-%% ルビ
-\newcount\@rubykanacount
-\newcount\@rubygokucount
-\newcount\@mojisuu
-\def\@mojikazoe#1{%
- \@tfor\member:=#1\do{\advance\@mojisuu by 1}}%
-\def\@rubyyomi#1{%
- \@for\member:=#1\do{%
-  \advance\@rubykanacount by 1
-  \ifnum\@rubykanacount=1\xdef\@rubykanai{\member}\else
-   \ifnum\@rubykanacount=2\xdef\@rubykanaii{\member}\else
-    \ifnum\@rubykanacount=3\xdef\@rubykanaiii{\member}\else
-     \ifnum\@rubykanacount=4\xdef\@rubykanaiv{\member}\else
-      \ifnum\@rubykanacount=5\xdef\@rubykanav{\member}\else
-       \ifnum\@rubykanacount=6\xdef\@rubykanavi{\member}%
-\fi\fi\fi\fi\fi\fi}}%
-\def\@rubygoku#1{%
- \@tfor\member:=#1\do{%
-  \advance\@rubygokucount by 1
-  \ifnum\@rubygokucount=1\xdef\@rubygokui{\member}\else
-   \ifnum\@rubygokucount=2\xdef\@rubygokuii{\member}\else
-    \ifnum\@rubygokucount=3\xdef\@rubygokuiii{\member}\else
-     \ifnum\@rubygokucount=4\xdef\@rubygokuiv{\member}\else
-      \ifnum\@rubygokucount=5\xdef\@rubygokuv{\member}\else
-       \ifnum\@rubygokucount=6\xdef\@rubygokuvi{\member}%
-\fi\fi\fi\fi\fi\fi}}%
-\def\@rubyi{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize
- \@rubykanai\hss}}\nointerlineskip\kern.5mm\hbox to 1zw{%
- \hss\@rubygokui\hss}}}}}%
-\def\@rubyii{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize\@rubykanaii\hss}}\nointerlineskip
- \kern.5mm\hbox to 1zw{\hss\@rubygokuii\hss}}}}}%
-\def\@rubyiii{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize\@rubykanaiii\hss}}\nointerlineskip
- \kern.5mm\hbox to 1zw{\hss\@rubygokuiii\hss}}}}}%
-\def\@rubyiv{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize\@rubykanaiv\hss}}\nointerlineskip
- \kern.5mm\hbox to 1zw{\hss\@rubygokuiv\hss}}}}}%
-\def\@rubyv{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize\@rubykanav\hss}}\nointerlineskip
- \kern.5mm\hbox to 1zw{\hss\@rubygokuv\hss}}}}}%
-\def\@rubyvi{%
- {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
- \hbox to 1zw{{\hss\scriptsize\@rubykanavi\hss}}\nointerlineskip
- \kern.5mm\hbox to 1zw{\hss\@rubygokuvi\hss}}}}}%
-\def\@tasu{\hspace{\kanjiskip}}
-\def\ruby{\@ifstar\@@ruby\@ruby}
-\def\@@ruby#1#2{%
- \@mojisuu=0\relax
- \@rubykanacount=0\relax
- \@rubygokucount=0\relax
- \@mojikazoe{#1}%
- \@rubyyomi{#2}%
- \@rubygoku{#1}%
- \leavevmode
- \@rubyi\@tasu\ifnum\@mojisuu>1\@rubyii\@tasu
- \ifnum\@mojisuu>2\@rubyiii\@tasu\ifnum\@mojisuu>3\@rubyiv\@tasu
- \ifnum\@mojisuu>4\@rubyv\@tasu\ifnum\@mojisuu>5\@rubyvi\@tasu
- \ifnum\@mojisuu>6\message{注意！ルビは一度に６文字までです。^^J
- 文章が失われます。続けてルビを振る場合は^^J
- \backslash ruby* を使ってください。}\fi\fi\fi\fi\fi\fi}
-\def\@ruby#1#2{\@tasu\@@ruby{#1}{#2}}
-%% fake な見出しの定義
-\newcounter{part}\setcounter{part}{0}
-\newcounter{chapter}\setcounter{chapter}{0}
-\newcounter{section}\setcounter{section}{0}
-\newcounter{subsection}\setcounter{subsection}{0}
-\def\@@全角数字#1{%
-  \ifcase#1\unskip\or １\or ２\or ３\or ４\or ５\or%
-                      ６\or ７\or ８\or ９\else%
-                      \@clerr\fi\relax}%
+
+\usepackage{pxrubrica}			%八登崇之的ruby包
+\kentenmarkintate{bullet}		%\kenten{xxxx}字樣式
+\kentensubmarkintate{Bullet}	%\kenten[s]{xxxx}字樣式
+\kentenmarkinyoko{bullet}		%横着重号
+\kentensubmarkinyoko{Bullet}	%横附加着重号
+
+\rubyfontsetup{\mgfamily\small\selectfont\kanjiskip=.5pt}
+%\rubysetup{<j>}  熟語ルビで、隣接文字に半角までかけるのを許可するのを既定とする
+  % \rubysetup 自体の(パッケージの)既定値は |cj| である
+%\rubyintergap{0.04} % ルビと親文字の間の空き(既定値は 0)
+\rubysetup{(gh>}% group && head
+
 \newlength{\@hindent}
-\def\@全角数字#1{%
-  \@@全角数字{\@nameuse{c@#1}}}%
-\def\part#1{{\parindent\z@\refstepcounter{part}\clearpage
-  \settowidth{\@hindent}{第\@全角数字{part}部　\hspace{\kanjiskip}}%
-  第\@全角数字{part}部　\hangindent\@hindent#1\clearpage}}%
-\def\chapter#1{{\parindent\z@\refstepcounter{chapter}\clearpage
-  \settowidth{\@hindent}{第\@全角数字{chapter}章　\hspace{\kanjiskip}}%
-  第\@全角数字{chapter}章　\hangindent\@hindent#1\nopagebreak\par
-  \setcounter{section}{0}}}%
-\def\section#1{{\parindent\z@\refstepcounter{section}\par
-  \settowidth{\@hindent}{\@全角数字{section}　\hspace{\kanjiskip}}%
-  \@全角数字{section}　\hangindent\@hindent#1\nopagebreak\par
-  \setcounter{subsection}{0}}}%
-\def\subsection#1{{\parindent\z@\refstepcounter{subsection}\par
-  \settowidth{\@hindent}{\@全角数字{section}・\@全角数字{subsection}%
-  　\hspace{\kanjiskip}}%
-  \@全角数字{section}・\@全角数字{subsection}　\hangindent\@hindent#1
-  \nopagebreak\par}}%
-\def\subsubsection#1{%
-  \settowidth{\@hindent}{　\hspace{\kanjiskip}}%
-  \par\hangindent\h@indent#1\nopagebreak\par}%
+
+
 \newcounter{gencount}
 %% fake な enumerate 環境
 \renewenvironment{enumerate}{%
@@ -143,10 +60,31 @@
  \@maeaki#1\@usiroaki\else
  \hspace{\kanjiskip}#1\hspace{\kanjiskip}\fi}
 
+\newenvironment{verse}
+  {\let\\\@centercr
+   \list{}{\itemsep\z@ \itemindent -1.5em%
+           \listparindent\itemindent
+           \rightmargin\leftmargin \advance\leftmargin 1.5em}%
+           \item\relax}{\endlist}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 自定義的字體
+
+\DeclareFontFamily{JY2}{ujlreq}{}
+\DeclareFontFamily{JT2}{ujlreq}{}
+
+\DeclareFontShape{JY2}{ujlreq}{m}{n}{<->s*[0.961000]ujlreq}{}
+\DeclareFontShape{JY2}{ujlreq}{m}{it}{<->ssub*ujlreq/m/n}{}
+\DeclareFontShape{JY2}{ujlreq}{m}{sl}{<->ssub*ujlreq/m/n}{}
+\DeclareFontShape{JY2}{ujlreq}{m}{sc}{<->ssub*ujlreq/m/n}{}
+
+\DeclareFontShape{JT2}{ujlreq}{m}{n}{<->s*[0.961000]ujlreq-v}{}
+\DeclareFontShape{JT2}{ujlreq}{m}{it}{<->ssub*ujlreq/m/n}{}
+\DeclareFontShape{JT2}{ujlreq}{m}{sl}{<->ssub*ujlreq/m/n}{}
+\DeclareFontShape{JT2}{ujlreq}{m}{sc}{<->ssub*ujlreq/m/n}{}
+
+\DeclareRobustCommand\ujlreq{\kanjifamily{ujlreq}\selectfont}
 
 % 繁體中文 adobe 明體 & adobe 繁黑體
 \DeclareFontFamily{JY2}{upmsl}{}
@@ -304,10 +242,109 @@
 } %
 
 
-
+%%顔色設定
+\usepackage{color}
+\usepackage{xcolor}
+\newcommand{\black}[1]{\textcolor{black}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\甲}[1]{\textcolor{red}{#1}}
+\newcommand{\庚側}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\庚}[1]{\textcolor{blue}{#1}}
+\newcommand{\戚}[1]{\textcolor{yellow!50!green}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\己}[1]{\textcolor{cyan}{#1}}
+\newcommand{\magenta}[1]{\textcolor{magenta}{#1}}
+\newcommand{\蒙}[1]{\textcolor{magenta}{#1}}
+\newcommand{\pink}[1]{\textcolor{pink}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\夢}[1]{\textcolor{purple}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\脫漏}[1]{\textcolor{orange}{#1}}
+\newcommand{\lime}[1]{\textcolor{lime}{#1}}
+\newcommand{\violet}[1]{\textcolor{violet}{#1}}
+\newcommand{\甲辰}[1]{\textcolor{violet}{#1}}
+\newcommand{\olive}[1]{\textcolor{olive}{#1}}
+\newcommand{\lightgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\teal}[1]{\textcolor{teal}{#1}}
+\newcommand{\列}[1]{\textcolor{teal}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\brown}[1]{\textcolor{brown}{#1}}
 
 
 
 
 \endinput
 %% end of genkomac.sty
+
+
+%% ルビ
+\newcount\@rubykanacount
+\newcount\@rubygokucount
+\newcount\@mojisuu
+\def\@mojikazoe#1{%
+ \@tfor\member:=#1\do{\advance\@mojisuu by 1}}%
+\def\@rubyyomi#1{%
+ \@for\member:=#1\do{%
+  \advance\@rubykanacount by 1
+  \ifnum\@rubykanacount=1\xdef\@rubykanai{\member}\else
+   \ifnum\@rubykanacount=2\xdef\@rubykanaii{\member}\else
+    \ifnum\@rubykanacount=3\xdef\@rubykanaiii{\member}\else
+     \ifnum\@rubykanacount=4\xdef\@rubykanaiv{\member}\else
+      \ifnum\@rubykanacount=5\xdef\@rubykanav{\member}\else
+       \ifnum\@rubykanacount=6\xdef\@rubykanavi{\member}%
+\fi\fi\fi\fi\fi\fi}}%
+\def\@rubygoku#1{%
+ \@tfor\member:=#1\do{%
+  \advance\@rubygokucount by 1
+  \ifnum\@rubygokucount=1\xdef\@rubygokui{\member}\else
+   \ifnum\@rubygokucount=2\xdef\@rubygokuii{\member}\else
+    \ifnum\@rubygokucount=3\xdef\@rubygokuiii{\member}\else
+     \ifnum\@rubygokucount=4\xdef\@rubygokuiv{\member}\else
+      \ifnum\@rubygokucount=5\xdef\@rubygokuv{\member}\else
+       \ifnum\@rubygokucount=6\xdef\@rubygokuvi{\member}%
+\fi\fi\fi\fi\fi\fi}}%
+\def\@rubyi{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize
+ \@rubykanai\hss}}\nointerlineskip\kern.5mm\hbox to 1zw{%
+ \hss\@rubygokui\hss}}}}}%
+\def\@rubyii{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaii\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuii\hss}}}}}%
+\def\@rubyiii{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaiii\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuiii\hss}}}}}%
+\def\@rubyiv{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanaiv\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuiv\hss}}}}}%
+\def\@rubyv{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanav\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuv\hss}}}}}%
+\def\@rubyvi{%
+ {\smash{\vbox{\kanjiskip=0pt\hsize=1zw
+ \hbox to 1zw{{\hss\scriptsize\@rubykanavi\hss}}\nointerlineskip
+ \kern.5mm\hbox to 1zw{\hss\@rubygokuvi\hss}}}}}%
+\def\@tasu{\hspace{\kanjiskip}}
+\def\ruby{\@ifstar\@@ruby\@ruby}
+\def\@@ruby#1#2{%
+ \@mojisuu=0\relax
+ \@rubykanacount=0\relax
+ \@rubygokucount=0\relax
+ \@mojikazoe{#1}%
+ \@rubyyomi{#2}%
+ \@rubygoku{#1}%
+ \leavevmode
+ \@rubyi\@tasu\ifnum\@mojisuu>1\@rubyii\@tasu
+ \ifnum\@mojisuu>2\@rubyiii\@tasu\ifnum\@mojisuu>3\@rubyiv\@tasu
+ \ifnum\@mojisuu>4\@rubyv\@tasu\ifnum\@mojisuu>5\@rubyvi\@tasu
+ \ifnum\@mojisuu>6\message{注意！ルビは一度に６文字までです。^^J
+ 文章が失われます。続けてルビを振る場合は^^J
+ \backslash ruby* を使ってください。}\fi\fi\fi\fi\fi\fi}
+\def\@ruby#1#2{\@tasu\@@ruby{#1}{#2}}
