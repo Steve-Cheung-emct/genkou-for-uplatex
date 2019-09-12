@@ -95,7 +95,23 @@
 %\onehalfspacing                  %% 1.5倍行距
 %\doublespacing                 %雙倍行距
 
-\title{\Large \gtfamily up\LaTeX 原稿用紙使用説明\\ version 1.0b }
+\DeclareFontFamily{JY2}{upstht}{}
+\DeclareFontFamily{JT2}{upstht}{}
+
+\DeclareFontShape{JY2}{upstht}{m}{n}{<->s*[0.961000]upstht-h}{}
+\DeclareFontShape{JT2}{upstht}{m}{it}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sl}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sc}{<->ssub*upstht/m/n}{}
+
+\DeclareFontShape{JT2}{upstht}{m}{n}{<->s*[0.961000]upstht-v}{}
+\DeclareFontShape{JT2}{upstht}{m}{it}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sl}{<->ssub*upstht/m/n}{}
+\DeclareFontShape{JT2}{upstht}{m}{sc}{<->ssub*upstht/m/n}{}
+
+\DeclareRobustCommand\upstht{\kanjifamily{upstht}\selectfont}
+
+
+\title{\Large \gtfamily up\LaTeX 原稿用紙使用説明\\ version 1.5b }
 \author{\CID{8015}菅野善久  \footnotemark[1]   , \CID{8015}Steve Cheung \footnotemark[2]   }
 \footnotetext[1]{
  本作的原著者名爲菅野善久，他的 email ：\blue{ koshian@misao.gr.jp  } . \\
@@ -205,7 +221,10 @@ pause
 \subsection{基本選項紹介}
 \par 為 documentclass 指定 genkou.cls 並根據需要指定選項。
 您可以指定以下五個選項（括號内是選項名稱）。
-\par ★注意： 當設置佈局時，只能使用以下的和制漢字，寫法錯誤將無法通過編譯。
+\par ★注意： {\bf{當設置佈局時，只能使用以下的和制漢字，寫法錯誤將無法通過編譯。%
+（接受的魔改需要用戶自行設定）}}
+
+
 \begin{enumerate}
 \item 組み方（横，縦，リボン，便箋）
 \item 用紙サイズ（B5，A4，B4）
@@ -231,13 +250,13 @@ pause
 
 
 \subsection{佈局}
-\par 縱書、橫書、便箋、絲帶「我們經常在義務教育中看到的那些」。
+\par 縱書、橫書、便箋、絲帶「日本人給小孩子寫作訓練用的，類似作文紙一樣的冊子，經過對摺可以裝訂成冊」。
 
 \subsection{用紙}
 \par 紙張尺寸選項僅在指定縱向或橫向時才有意義。
 如果為組合指定了絲帶或便箋，則會自動確定紙張尺寸。
 \par 可以指定的四種組合：＜横,B5＞，＜横,A4＞，＜縦,A4＞，＜縦,B4＞。
-
+\par {\bf{如果經過嘗試，仍然無法修改頁面大小。則説明，此模板不接受定制。}}
 
 \subsection{矩陣顔色}
 \par 您可以選擇 13 種不同的顏色（包括無色）。一定先試試它的顏色。
@@ -369,27 +388,11 @@ Ruby 可以一次最多振 6 個字。
 \subsubsection{could not locate a virtual/physical font for tfm} \label{TFM}
 \par 無法為指定的TFM文件找到某個 *.vf 字體。該問題出現時請先嘗試刷新字體緩存。
 \begin{lstlisting}
-fc-cache -f -r
 mktexlsr
 updmap-sys
 \end{lstlisting}
 
-\par 此時若仍未得到解決，則嘗試以下命令：\\
-UNIX/ OSX/ Linux
-\begin{lstlisting}
-cd /usr/local/texlive/2018/texmf-dist/scripts/cjk-gs-integrate
-sudo perl cjk-gs-integrate.pl --link-texmf --force
-sudo mktexlsr
-\end{lstlisting}
-或 Windows
-\begin{lstlisting}
-cd C:\texlive\2018\texmf-dist\scripts\cjk-gs-integrate
-perl cjk-gs-integrate.pl --link-texmf --force
-mktexlsr
-\end{lstlisting}
-注意：Windows下使用Perl命令需要下載ActivePerl 軟件包
-\footnote{ActivePerl 軟件包下載鏈接：
-https://www.activestate.com/products/activeperl/downloads/}
+\par 此時若仍未得到解決，則嘗試為所有用戶安裝該TTF/OTF字體。
 
 \subsubsection{ dvipdfmx:warning: Some characters may not be displayed or printed.}
 出現此問題説明你使用的字符映射中出現了一個位於較高碼位的替代。
@@ -416,25 +419,26 @@ https://www.activestate.com/products/activeperl/downloads/}
 
 \CID{152} % \textsuperscript{\textregistered}  copyright symbol
 2019/01/12  SteveCheung 子康
+
+
 \clearpage
 
 \section*{附\quad 錄}
 
-
 \begin{appendix}
 
-
 \section{up\LaTeX 字體的配置}
-\par  通常，up\LaTeX 使用{\bfseries dvipdfmx package } 進行pdf 輸出 ，
-您可以先嘗試使用以下命令瀏覽本機支持的東亞漢字字族。\\
+\par  通常，up\LaTeX 使用{\bfseries dvipdfmx} 進行pdf 輸出 ，
+您可以先嘗試使用以下命令瀏覽本機支持的東亞漢字字族。
+
 ※ 請\hspace{3pt}以\red{管理員權限執行} ，
 OS X / Linux系統中使用 \red{\bfseries sudo} 十分必要。
-\begin{lstlisting}
+\begin{lstlisting}[firstnumber=1]
 kanji-config-updmap-sys status
 \end{lstlisting}
 
 系統會回顯您的電腦上可用的字族。如下：
-\begin{lstlisting}
+\begin{lstlisting}[firstnumber=1]
 C:\Windows\system32>kanji-config-updmap-sys status
 CURRENT family for ja: kozuka-pr6n
 Standby family : ipa
@@ -444,10 +448,8 @@ Standby family : ms
 Standby family : yu-win10
 \end{lstlisting}
 
-
-
 然後使用以下命令設置：
-\begin{lstlisting}
+\begin{lstlisting}[firstnumber=1]
 (* \CID{234} ※ Unix的OSの場合, sudoが必要 *)
 
 (* \CID{234} IPAexフォントを使う *)
@@ -462,26 +464,31 @@ $ kanji-config-updmap-sys  kozuka-pr6n
 (* \CID{234} 小塚フォント(Pr6N版)を使う; 2004JIS字形指定 *)
 $ kanji-config-updmap-sys --jis2004 kozuka-pr6n
 \end{lstlisting}
-\par {\bfseries  --jis2004} 選項：是否使用JIS2004標準字形。
-\par 關於字族的説明：
-\begin{itemize}
-\item kozuka-pr6n  \quad   小塚フォント（小塚明朝 Pr6N版)，
-伴隨AcrobatX10及更新的版本附贈，非商用
-\item ipa \qquad \qquad \quad 独立行政法人情報処理推進機構
-開發的 IPA 舊字
-\item ipaex  \quad \qquad  \quad  独立行政法人情報処理推進機構
-開發的 IPA 新字體\footnotemark[3]
-\item kozuka  \quad \qquad  小塚フォント（小塚明朝），非商用
-\item ms  \quad  \qquad \qquad Microsoft系統附贈，非商用
-\item yu-win10  \quad \quad  Microsoft日文版Windows系統附贈字體，
-需從網頁下載使用
-\footnotemark[4]，非商用
-\end{itemize}
-\footnotetext[3]{IPAex字體下載地址：https://ipafont.ipa.go.jp/node26 }
-\footnotetext[4]{游-明體下載地址： https://www.wfonts.com/download
-/data/2016/07/04/yu-mincho/yumin.ttf}
+\par 推薦使用{\bfseries  kanji-config-updmap-sys --jis2004 kozuka-pr6n}.
+\par {\bfseries  --jis2004} 選項：是否使用JIS2004標準字形。無此選項則表示
+采用{\bfseries{}JIS90}字形。相關信息詳細請檢索網頁，此處不再贅述。 關於字族的説明：
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{p{30mm}p{120mm}}
+\hline
+\CID{119} kozuka-pr6n  & 小塚フォント（小塚明朝 Pr6N版)，非商用 \\
+\CID{119} ipa  & 独立行政法人情報処理推進機構開發的 IPA 舊字 \\
+\CID{119} ipaex  &  独立行政法人情報処理推進機構
+開發的 IPA 新字體\footnotemark[3] \\
+\CID{119} kozuka  &  小塚フォント（小塚明朝），非商用\\
+\CID{119} ms   &  Microsoft系統附贈，非商用\\
+\CID{119} yu-win10   &   Microsoft日文版Windows系統附贈字體，
+需從網頁下載使用，非商用 \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\footnotetext[3]{IPAex字體下載地址：\url{https://ipafont.ipa.go.jp/node26} }
+
+
+
 \par 設置結果如下所示：
-\begin{lstlisting}
+\begin{lstlisting}[firstnumber=1]
 C:\Windows\system32>kanji-config-updmap-sys kozuka-pr6n
 Setting up ... ptex-kozuka-pr6n.map
 ... ...
@@ -502,37 +509,67 @@ C:\Windows\system32>
 
 \section{ptex2pdf使用參數紹介}\label{ptex2pdf}
 
-{ \bfseries \par  語法 }
-\begin{lstlisting}
+\begin{lstlisting}[firstnumber=1]
 [texlua] ptex2pdf[.lua] { option | basename[.tex] } ...
 \end{lstlisting}
 { \bfseries  options:}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{p{90mm}p{60mm}}
+\hline
+\CID{119}  -v  version  										& 顯示版本\\
+\CID{119}  -h  help  											& 幫助\\
+\CID{119}  -help print full help (installation, TeXworks setup) 	& \\
+\CID{119}  -e  use eptex class of programs 					& 使用ep\TeX 特性進行編譯（默認載入）\\
+\CID{119}  -u  use uptex class of programs 					& 使用up\TeX 特性進行編譯\\
+\CID{119}  -l  use latex based formats  						& 引用\LaTeX 語法格式\\
+\CID{119}  -s  stop at dvi  										& 編譯結束，在dvi之前立即停止\\
+\CID{119}  -i  retain intermediate files  						& 保留過程文件\\
+\CID{119}  -ot $<opts>$ extra options for  \TeX   				& 額外 \TeX 選項\\
+\CID{119}  -od $<opts>$ extra options for dvipdfmx  			& 額外 dvipdfmx 選項\\
+\CID{119}  -output-directory $<dir>$ directory for created files	& 指定pdf 輸出 目錄\\ \hline
+\end{tabular}
+\end{center}
+\verb+-ot "-kanji=utf8" +\qquad{設置默認的編碼，一般爲utf8或者sjis，默認為sjis，不設置，直接utf8也能被系統通過。}
+\verb+-od "-p A4 " +\qquad{設置紙張，默認為A4。需要注意，使用B5紙張時，將采用ISO B5（250x176mm），而非JIS B5（257x182mm）。}
+\end{table}
+
+\section{up{\LaTeX}常用命令舉例}
+
 \begin{itemize}
-\item \quad  -v  version  \qquad 顯示版本
-\item \quad  -h  help  \qquad 幫助
-\item \quad  -help print full help (installation, TeXworks setup)
-\item \quad  -e  use eptex class of programs  \qquad 使用ep\TeX 特性進行編譯
-\item \quad  -u  use uptex class of programs  \qquad 使用up\TeX 特性進行編譯
-\item \quad  -l  use latex based formats  \qquad 引用\LaTeX 語法格式
-\item \quad  -s  stop at dvi  \qquad 編譯結束，在dvi之前立即停止
-\item \quad  -i  retain intermediate files  \qquad 保留過程文件
-\item \quad  -ot '<opts>' extra options for  \TeX   \qquad 額外 \TeX 選項
-\item \quad  -od '<opts>' extra options for dvipdfmx   \qquad 額外 dvipdfmx 選項
-\item \quad  -output-directory '<dir>' directory for created files   \qquad 指定pdf 輸出 目錄
+
+\upstht
+
+\item{}{\verb+\yato+}和{\verb+\tate+}：这两个命令是让你确定横排还是竖排。实际上还有一个{\verb+\dtou+}命令，也是竖排，但是是从下到上，这个命令只有在一些开发文档上才能看到。
+\item{}{\verb+\jfont+}和{\verb+\tfont+}：这两个命令和TeX原始的{\verb+\font+}命令一样，但是分别指定的是横排和竖排的字体。在{p\LaTeX}扩展的NFSS编码中，横排和竖排的字体编码为JY1和JT1，{up\LaTeX}中相应的编码为JY2和JT2，{Lua\TeX}-ja中对应的编码为JY3和JT3。
+\item{}{\verb+\jfam+}：这个命令是用来定义字体族的，请参考{\TeX}中的{\verb+\fam+}用法。
+\item{}{\verb+zh+}和{\verb+zw+}：这两个是相对单位，类似于tfm中定义的ex和em，指的是一个汉字的高度和宽度，定义来源于jfm中的相关部分。
+\item{}{\verb+\ybaselineshift+}和{\verb+\tbaselineshift+}：这两个命令是用来对齐汉字和西文之间的基线的，通常情况下都需要进行调整，让汉字与西文对齐。
+\item{}{\verb+\kanjiskip+}和{\verb+\xkanjiskip+}：两个命令分别对应的是：汉字-汉字之间距离，汉字-西文距离。 有点像{\TeX}中{\verb+\spaceskip+}（此命令只對西文起作用）。
+\item{}{\verb+\kansuji+}和{\verb+\kansujichar+}：前者将阿拉伯数字转换成汉字，如{\verb+\kansuji12+}转换成“一二”。后者给数字指定汉字，如{\verb+\kansujichar1=`壱+}。
+\item{}{\verb+\euc+}、{\verb+\jis+}和{\verb+\sjis+}：这个命令相当于{\verb+\char+}，就是限定了编码。
+\item{}{\verb+\prebreakpenalty+}和{\verb+\postbreakpenalty+}：这两个命令分别在某个字符前或者字符后添加penalty，以达到避头尾的效果。如{\verb+\prebreakpenalty`あ=1000+}。
+\item{}{\verb+\jcharwidowpenalty+}：这是控制孤行的。
+\item{}{\verb+\xspcode+}：控制{\verb+\xkanjiskip+}插入的命令，对象是西文字符，如{\verb+\xspcode`A=0+}。可选的值为：0，1，2，3。0的情况：禁止在左侧插入。1的情况：允许在左侧插入。2的情况：允许在右侧插入。3的情况：允许两侧插入。
+\item{}{\verb+\inhibitglue+}：禁止glue插入。
+\item{}{\verb+\autospacing+}和{\verb+\noautospacing+}：允许/禁止汉字-汉字之间插入glue。
+\item{}{\verb+\autoxspacing+}和{\verb+\noautoxspacing+}：允许/禁止汉字-西文之间插入glue。
+\item{}{\verb+\inhibitxspcode+}：和{\verb+\xspcode+}类似，但是这个命令对象是汉字字符。
+\item{}{\verb+\kcatcode+}：类似于TeX的{\verb+\catcode+}。
 \end{itemize}
 
+\par\href{https://www.zhihu.com/question/20544732/answer/15437234}%
+{詳見``如何使用 LaTeX 輸出豎版排版的文章或書籍？"}
 
 \section{ Drag＆Drop Up\TeX 2018介紹}\label{uptex-xiongben}
 
 配置緊湊（具體來說，TeX Live 方案 - 小到只收集日語解決方案），
-但它足以使用 \pLaTeX 和 up\LaTeX。 此外，它還帶有一個自動執行
+但它足以使用 p\LaTeX 和 up\LaTeX。 此外，它還帶有一個自動執行
 日語字體設置的 GUI，因此您可以用最少的操作完成日語字體設置。
 通過將 \TeX 環境包裝在應用程序包中，使用拖放功能將其安裝在
 任意位置，並以最少的操作完成必要的設置。
 
-\CID{722}OSX 專用。
-
-項目網站：http://www2.kumagaku.ac.jp/teacher/herogw/
+\CID{722}OSX 專用。項目網站：\url{http://www2.kumagaku.ac.jp/teacher/herogw/}
 
 \clearpage
 \section{中日文字分級簡介}
@@ -544,47 +581,48 @@ C:\Windows\system32>
 \begin{table}[h]
 \caption{\fontsize{12pt}{15pt}\selectfont Adobe-Japan1 編碼覆蓋範圍} % title of Table
 \centering % used for centering table
-\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+{\fontsize{9pt}{14}\selectfont\ttfamily
+\begin{tabular}{|c|c|p{6cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
 \hline  % 在表格最上方绘制横线
 
-規格 & 慣用的な商品記号	& おおよその特徴 / 該当製品の例	 & 文字数(漢字数) \\
+規格 & 慣用的な商品記号	& \multicolumn{1}{|c|}{おおよその特徴 / 該当製品の例} & 文字数(漢字数) \\
 
 \hline  %在第一行和第二行之间绘制横线
 AJ1-0 &	─	 & 漢字 Talk (昔の Mac OS)
-をベースに、新旧 (1978 ・ 1983) の JIS 第 1 水準・第 2 水準漢字をカバー。
+をベースに、新旧 (1978 ? 1983) の JIS 第 1 水準?第 2 水準漢字をカバー。
 & 8,284 (6,653) \\
 \hline
 AJ1-1	& ─ &	当時制定された JIS90 に対応。
 AJ1-0 と大差なし。 & 	8,359 (6,655) \\
 \hline
 AJ1-2	& ─	 &  IBM 選定文字 (Win 機種依存文字)
-に対応。これにより当時の Win ・ Mac で一般的だった文字を共にカバー。
+に対応。これにより当時の Win ? Mac で一般的だった文字を共にカバー。
 & 	8,720 (7,014) \\
 \hline
 
 AJ1-3	& Std/StdN	&   AJ1-2 に記号などを追加。
-漢字の追加はなし。ヒラギノフォント・イワタ書体ライブラリー・ダイナフォ
-ント・モトヤ・モリサワ・タイプバンク (旧リョービ製品含む) ・カタオカデザ
-インワークス・ Font-Kai ・清和堂 & 9,354 (7,014) \\
+漢字の追加はなし。ヒラギノフォント?イワタ書体ライブラリー?ダイナフォ
+ント?モトヤ?モリサワ?タイプバンク (旧リョービ製品含む) ?カタオカデザ
+インワークス? Font-Kai ?清和堂 & 9,354 (7,014) \\
 
 \hline
 AJ1-4	& Pro/ProN &
 (ヒラギノを除く)	商業印刷で必要になる主だった漢字
-(人名・学術漢字など) や大量の記号を追加。
-モトヤ・イワタ書体ライブラリー・モリサワ・タイプバンク
+(人名?学術漢字など) や大量の記号を追加。
+モトヤ?イワタ書体ライブラリー?モリサワ?タイプバンク
 (旧リョービ製品含む)  & 15,444 (9,138) \\
 \hline
 AJ1-5	& Pr5/Pr5N &
 (ヒラギノは Pro/ProN、
 ダイナフォントは Pro-5)	使用頻度の低い漢字を大量追加。
-これにより、JIS 第 3 ・第 4 水準漢字をカバー。
-ヒラギノフォント・ビープラス・モリサワ・タイプバンク
-(旧リョービ製品含む) ・ダイナフォント  & 20,317 (12,676) \\
+これにより、JIS 第 3 ?第 4 水準漢字をカバー。
+ヒラギノフォント?ビープラス?モリサワ?タイプバンク
+(旧リョービ製品含む) ?ダイナフォント  & 20,317 (12,676) \\
 
 \hline
 AJ1-6	& Pr6/Pr6N	&  JIS 補助漢字 (1990)
 の残りなど、更に使用頻度の低い漢字を追加。これにより JIS 拡張漢字
-(2004) をカバー。ヒラギノフォント・イワタ書体ライブラリー・モリサワ
+(2004) をカバー。ヒラギノフォント?イワタ書体ライブラリー?モリサワ
 & 23,058 (14,663) \\
 
 \hline
@@ -592,7 +630,7 @@ AJ1-7	& Pr7/Pr7N	&  因改元需增加一橫一縱兩個年號合字。 & 增改
 
 \hline % 在表格最下方绘制横线
 \end{tabular}
-
+}
 \end{table}
 
 \clearpage
@@ -602,10 +640,11 @@ AJ1-7	& Pr7/Pr7N	&  因改元需增加一橫一縱兩個年號合字。 & 增改
 \begin{table}[h]
 \caption{\fontsize{12pt}{15pt}\selectfont Adobe-GB1 編碼覆蓋範圍} % title of Table
 \centering % used for centering table
-\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+{\fontsize{10pt}{15}\selectfont\ttfamily
+\begin{tabular}{|c|c|p{6cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
 \hline  % 在表格最上方绘制横线
 
-規格 & 商品記号	& 特徴	 & 文字数(漢字数) \\
+規格 & 商品記号	& \multicolumn{1}{|c|}{特 徴} & 文字数(漢字数) \\
 
 \hline  %在第一行和第二行之间绘制横线
 Adobe-GB1-0 &	GB0	 & 1995年6月26日發佈，
@@ -636,7 +675,7 @@ Adobe-GB1-5	& GB5 & 主要是彜族文字，來自GB18030-2005字符集，
 
 \hline % 在表格最下方绘制横线
 \end{tabular}
-
+}
 \end{table}
 
 \clearpage
@@ -645,10 +684,11 @@ Adobe-GB1-5	& GB5 & 主要是彜族文字，來自GB18030-2005字符集，
 \begin{table}[h]
 \caption{\fontsize{12pt}{15pt}\selectfont Adobe-CNS1 編碼覆蓋範圍} % title of Table
 \centering % used for centering table
-\begin{tabular}{|c|c|p{7cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
+{\fontsize{10pt}{15}\selectfont\ttfamily
+\begin{tabular}{|c|c|p{6cm}|c|}% 通过添加 | 来表示是否需要绘制竖线
 \hline  % 在表格最上方绘制横线
 
-規格 & 商品記号	& 特徴	 & 文字数(漢字数) \\
+規格 & 商品記号	& \multicolumn{1}{|c|}{特 徴} & 文字数(漢字数) \\
 
 \hline  %在第一行和第二行之间绘制横线
 Adobe-CNS1-0 &	-	 & 1995年6月26日發佈，共計14,099個CID，
@@ -679,9 +719,8 @@ Adobe-CNS1-6	& CNS6 & 2009年9月24日發佈。
 來自HK-SCS-2008標準，計68個CID. & 19,156（17,867） \\
 \hline % 在表格最下方绘制横线
 \end{tabular}
-
+}
 \end{table}
-
 
 \end{appendix}
 
