@@ -1,6 +1,6 @@
-# genkou-for-uplatex
+## genkou-for-uplatex
 
-# 原稿用紙；原稿紙；稿紙；日式便箋；
+## 原稿用紙；原稿紙；稿紙；日式便箋；
 
 UPTEX/UPLATEX 縱書
 
@@ -14,8 +14,11 @@ UPTEX/UPLATEX 縱書
  原作説明網頁（僅適用於ptex）：
  http://konoyonohana.blog.fc2.com/blog-entry-167.html
  
+ ### 新版，利用 tikz 實現的原稿紙。見
+ https://github.com/Steve-Cheung-emct/ugenko-rewritten
+ 
 
-## 關於 安裝 gerib10.mf 字體的説明
+### 關於 安裝 gerib10.mf 字體的説明
 
 1、該字體用於 ribon 模板。
 
